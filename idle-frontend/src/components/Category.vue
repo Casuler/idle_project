@@ -1,0 +1,108 @@
+<template>
+    <el-button @click="getGoods">全部</el-button>
+    <el-button @click="getCategory(form.category='服饰')">服饰</el-button>
+    <el-button @click="getCategory(form.category='生活')">生活</el-button>
+    <el-button @click="getCategory(form.category='科技')">科技</el-button>
+        <div class="good">
+            <header class="good-header">{{ form.category }}</header>
+            <div class="good-box">
+                <div class="good-item" v-for="item in form.goodsList" :key="item.id"
+                     @click="goDetail(item)">
+                    <img :src="item.picture" alt=""/>
+                    <div class="good-desc">
+                        <div class="title">{{item.productName}}</div>
+                        <div class="price">￥ {{item.price.toFixed(2)}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</template>
+
+<script setup>
+import {reactive, onMounted} from 'vue'
+import router from "@/router";
+import {get, post} from "@/request/request";
+
+const form = reactive({
+    goodsList:[],
+    category: []
+})
+const getGoods = () => {
+    get('/api/goods/get-goods',(message) => {
+        form.goodsList = message
+        form.category = '全部'
+    })
+}
+
+onMounted(async () =>{
+    await getGoods()
+})
+
+const getCategory = () => {
+    post('/api/goods/get-category-good', {
+        category: form.category
+    },message => {
+        form.goodsList = message
+    })
+}
+
+const goDetail = (item) => {
+    router.push({
+        path:`/index/product/${item.id}`,
+        query: {
+            id: item.id,
+            publisherId: item.publisherId
+        }
+    })
+}
+
+</script>
+
+<style lang="less" scoped>
+.good {
+    .good-header {
+        background: #f9f9f9;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        color: #000000;
+        font-size: 16px;
+        font-weight: 500;
+    }
+    .good-box {
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        .good-item {
+            box-sizing: border-box;
+            width: 50%;
+            border-bottom: 1px solid #dadada;
+            padding: 10px 10px;
+            text-align: center;
+            img {
+                display: block;
+                width: 300px;
+                height: 300px;
+                margin: 0 auto;
+            }
+            .good-desc {
+                text-align: center;
+                font-size: 14px;
+                padding: 10px 0;
+                .title {
+                    font-size: 20px;
+                    font-weight: bold;
+                    color: #222333;
+                }
+                .price {
+                    color: #f56c6c;
+                  font-size: 16px;
+                }
+            }
+            &:nth-child(2n+1) {
+                border-right: 1px solid #dadada;
+            }
+        }
+    }
+}
+</style>
