@@ -24,4 +24,6 @@ public interface GoodsService {
     AccountUser getUserByPublisherId(Integer publisherId);
 
     List<Goods> getGoodsByCategory(String category);
+
+    List<Goods> getGoodsByProductName(String productName);
 }

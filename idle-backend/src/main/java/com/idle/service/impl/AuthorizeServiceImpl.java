@@ -1,12 +1,10 @@
 package com.idle.service.impl;
 
-import com.aliyun.oss.OSSClient;
 import com.idle.entity.auth.Account;
 import com.idle.mapper.UserMapper;
 import com.idle.service.AuthorizeService;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
@@ -29,11 +27,6 @@ public class AuthorizeServiceImpl implements AuthorizeService {
     @Resource
     UserMapper mapper;
 
-    @Resource
-    OSSClient ossClient;
-
-    @Resource
-    Environment env;
     @Resource
     MailSender mailSender;
 

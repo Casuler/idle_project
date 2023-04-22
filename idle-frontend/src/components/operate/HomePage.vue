@@ -21,7 +21,11 @@
                     发布闲置
                 </el-button>
                 <div class="Search">
-                    <el-input type="text" v-model="search" placeholder="Search..." :suffix-icon="Search"/>
+                    <el-input type="text" v-model="form.search" placeholder="Search...">
+                    <template #suffix>
+                        <el-icon style="cursor: pointer" @click="searchGoods"><Search /></el-icon>
+                    </template>
+                    </el-input>
                 </div>
             </div>
               <div class="card">
@@ -47,7 +51,7 @@ const form = reactive({
 })
 
 const searchGoods = () => {
-
+    console.log(form.search)
 }
 
 </script>

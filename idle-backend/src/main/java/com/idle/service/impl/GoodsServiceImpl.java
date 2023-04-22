@@ -55,4 +55,8 @@ public class GoodsServiceImpl implements GoodsService {
     public List<Goods> getGoodsByCategory(String category){
         return goodsMapper.getGoodsByCategory(category);
     }
+
+    public List<Goods> getGoodsByProductName(String productName) {
+        return goodsMapper.getGoodsByProductName(productName);
+    }
 }

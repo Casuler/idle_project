@@ -38,9 +38,16 @@ public class GoodsController{
     }
 
     @PostMapping("get-category-good")
-    public RestBean<?> getGoodsByCategoryRestBean(String category){
+    public RestBean<?> getGoodsByCategory(String category){
         List<Goods> goods = goodsService.getGoodsByCategory(category);
         if(goods == null || goods.size() == 0) return RestBean.failure(401,"该分类不存在");
+        else return RestBean.success(goods);
+    }
+
+    @PostMapping("get-good-name")
+    public RestBean<?> getGoodsByProductName(String productName){
+        List<Goods> goods = goodsService.getGoodsByProductName(productName);
+        if(goods == null || goods.size() == 0) return RestBean.failure(401,"查询的商品还未上架");
         else return RestBean.success(goods);
     }
 

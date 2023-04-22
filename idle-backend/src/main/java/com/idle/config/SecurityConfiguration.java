@@ -41,7 +41,6 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/goods/**").permitAll()
-                .requestMatchers("/api/upload/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

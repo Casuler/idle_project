@@ -28,7 +28,7 @@
               ref="upload"
               accept="image/jpg,image/jpeg,image/png"
               :with-credentials="true"
-              action="http://localhost:8888/api/oss/upload"
+              action="http://localhost:8888/api/github/upload"
               :before-upload="handleBeforeUpload"
               list-type="picture"
               class="upload-demo"
@@ -84,8 +84,8 @@ const handleExceed = (files, uploadFiles) => {
 
 const handleSuccess = (file) => {
     ElMessage.success('图片上传成功')
-    console.log(file.data)
-    form.fileUrl = file.data
+    console.log(file.message)
+    form.fileUrl = file.message
 }
 
 const submitUpload = () => {
