@@ -11,9 +11,11 @@ public class WebConfiguration implements WebMvcConfigurer {
     @Resource
     AuthorizeInterceptor interceptor;
     @Override
+    //登录权限拦截器
     public void addInterceptors(InterceptorRegistry registry) {
         registry
                 .addInterceptor(interceptor)
-                .addPathPatterns("/**");
+                .addPathPatterns("/**")
+                .excludePathPatterns("/api/auth/**");
     }
 }

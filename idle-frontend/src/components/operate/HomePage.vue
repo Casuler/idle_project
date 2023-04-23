@@ -20,13 +20,6 @@
                     <el-icon><Goods/></el-icon>
                     发布闲置
                 </el-button>
-                <div class="Search">
-                    <el-input type="text" v-model="form.search" placeholder="Search...">
-                    <template #suffix>
-                        <el-icon style="cursor: pointer" @click="searchGoods"><Search /></el-icon>
-                    </template>
-                    </el-input>
-                </div>
             </div>
               <div class="card">
                   <div class="split-line"></div>
@@ -37,22 +30,15 @@
 </template>
 
 <script setup>
-import {Goods, Search} from '@element-plus/icons-vue'
+import {Goods} from '@element-plus/icons-vue'
 import Category from "@/components/Category.vue";
 import {useStore} from "@/stores/store";
 import router from "@/router";
-import { reactive } from 'vue'
 
 const top = 'https://itbaima.net/assets/resource-banner-27d717a1.jpg'
 const store = useStore()
 
-const form = reactive({
-    search: ''
-})
 
-const searchGoods = () => {
-    console.log(form.search)
-}
 
 </script>
 
@@ -75,20 +61,6 @@ const searchGoods = () => {
     padding: 5px;
     display: flex;
     flex-direction: row;
-}
-
-.Search{
-    width: 220px;
-    height: 40px;
-    .el-input{
-        width: 200px;
-        margin-left: 10px;
-        height: 40px;
-        padding: 0;
-        border: none;
-        outline: none;
-        font-size: 18px;
-    }
 }
 .card{
     margin: 0 50px;

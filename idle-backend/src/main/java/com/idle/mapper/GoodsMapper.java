@@ -38,6 +38,6 @@ public interface GoodsMapper {
     @Select("select * from db_goods where category = #{category}")
     List<Goods> getGoodsByCategory(String category);
 
-    @Select("select * from db_goods where db_goods.productName like '%'#{productName}")
+    @Select("select * from db_goods where db_goods.productName like CONCAT('%', #{productName}, '%')")
     List<Goods> getGoodsByProductName(String productName);
 }

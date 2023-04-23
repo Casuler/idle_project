@@ -3,6 +3,13 @@
     <el-button @click="getCategory(form.category='服饰')">服饰</el-button>
     <el-button @click="getCategory(form.category='生活')">生活</el-button>
     <el-button @click="getCategory(form.category='科技')">科技</el-button>
+    <div class="Search">
+        <el-input type="text" v-model="form.search" placeholder="Search...">
+            <template #suffix>
+                <el-icon style="cursor: pointer" @click="searchGoods"><Search /></el-icon>
+            </template>
+        </el-input>
+    </div>
         <div class="good">
             <header class="good-header">{{ form.category }}</header>
             <div class="good-box">
@@ -22,10 +29,13 @@
 import {reactive, onMounted} from 'vue'
 import router from "@/router";
 import {get, post} from "@/request/request";
+import {ElMessage} from 'element-plus'
+import {Search} from '@element-plus/icons-vue'
 
 const form = reactive({
     goodsList:[],
-    category: []
+    category: [],
+    search: ''
 })
 const getGoods = () => {
     get('/api/goods/get-goods',(message) => {
@@ -56,9 +66,32 @@ const goDetail = (item) => {
     })
 }
 
+const searchGoods = () => {
+    post('/api/goods/get-good-name',{
+        productName: form.search
+    },message =>{
+        ElMessage.success("搜索成功")
+        form.goodsList = message
+    })
+}
+
+
 </script>
 
 <style lang="less" scoped>
+.Search{
+    width: 220px;
+    margin-top: 5px;
+    height: 40px;
+    .el-input{
+        width: 200px;
+        height: 40px;
+        padding: 0;
+        border: none;
+        outline: none;
+        font-size: 18px;
+    }
+}
 .good {
     .good-header {
         background: #f9f9f9;

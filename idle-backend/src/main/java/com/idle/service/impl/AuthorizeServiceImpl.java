@@ -71,8 +71,9 @@ public class AuthorizeServiceImpl implements AuthorizeService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(from);
         message.setTo(email);
-        message.setSubject("Idle验证邮件");
-        message.setText("验证码是：" + code);
+        message.setSubject("Idle校园闲鱼网站验证邮件");
+        message.setText("您的验证码为: " + code
+                + "（有效期3分钟）。\n为了保证您的帐户安全，请勿向任何人提供此验证码。\n本邮件由系统自动发送，请勿直接回复。");
         try{
             mailSender.send(message);
             template.opsForValue().set(key, String.valueOf(code), 3, TimeUnit.MINUTES);
