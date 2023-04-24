@@ -30,9 +30,8 @@ public class GoodsController{
     }
 
     @GetMapping("/get-goods")
-    public RestBean<?> getAllGoods(Integer id, Integer publisherId,String productName, BigDecimal price,
-                                        String category, String introduce, String picture){
-        List<Goods> goods = goodsService.getAllGoods(id,publisherId, productName, price, category, introduce, picture);
+    public RestBean<?> getAllGoods(){
+        List<Goods> goods = goodsService.getAllGoods();
         if(goods == null) return RestBean.failure(401,"当前已无上架的商品");
         else return RestBean.success(goods);
     }

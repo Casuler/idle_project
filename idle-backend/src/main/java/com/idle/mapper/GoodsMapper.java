@@ -18,15 +18,15 @@ public interface GoodsMapper {
 
     @Insert("insert into db_goods (id, publisherId, productName, price, category, introduce, picture) values " +
             "(#{id}, #{publisherId}, #{productName}, #{price}, #{category}, #{introduce}, #{picture})")
-    int createGoods(Integer id, Integer publisherId, String productName, BigDecimal price, String category, String introduce, String picture);
+    int createGoods(Integer id, Integer publisherId, String productName, BigDecimal price, String category,
+                    String introduce, String picture);
 
     @Update("update db_goods set productName = #{productName}, price = #{price}, category = #{price}, introduce = " +
             "#{introduce}, picture = #{picture} where id = #{id}")
     int updateGoods(Integer id,String productName, BigDecimal price, String category, String introduce, String picture);
 
     @Select("select * from db_goods")
-    List<Goods> getAllGoods(Integer id, Integer publisherId, String productName, BigDecimal price, String category,
-                            String introduce, String picture);
+    List<Goods> getAllGoods();
 
     @Select("select * from db_goods join db_account on db_account.id = db_goods.publisherId where" +
             " db_goods.publisherId = #{publisherId}")

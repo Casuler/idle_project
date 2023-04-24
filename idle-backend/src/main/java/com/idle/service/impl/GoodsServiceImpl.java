@@ -37,9 +37,8 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public List<Goods> getAllGoods(Integer id, Integer publisherId, String productName, BigDecimal price, String category,
-                                   String introduce, String picture) {
-        return goodsMapper.getAllGoods(id, publisherId, productName, price, category, introduce, picture);
+    public List<Goods> getAllGoods() {
+        return goodsMapper.getAllGoods();
     }
 
     @Override

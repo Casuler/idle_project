@@ -5,7 +5,11 @@
             <span>{{ form.publisher.username }}</span>
             <div class="buy" v-for="item in form.detail" :key="item.id">
                 <a class="price">￥{{ item.price }}</a>
-                <el-button type="danger" plain style="width: 70px;margin-left: 10px;margin-top: -10px">立即购买</el-button>
+                <el-button type="danger"
+                           plain
+                           style="width: 70px;margin-left: 10px;margin-top: -10px"
+                           @click="goOrder(form.detail.id)"
+                >立即购买</el-button>
             </div>
         </div>
         <el-scrollbar wrap-style="overflow-x:hidden;" style="width: 100%;" height="720px">
@@ -53,6 +57,7 @@ import {reactive, computed, onMounted} from 'vue'
 import {useStore} from "@/stores/store";
 import {useRoute} from 'vue-router'
 import {post} from "@/request/request";
+import router from "@/router";
 
 const store = useStore()
 const userInfo = computed(() => store.auth.user)
@@ -77,6 +82,15 @@ const getPublisher = () => {
         publisherId: publisherId
     },message => {
         form.publisher = message
+    })
+}
+
+const goOrder = () => {
+    router.push({
+        path:`/index/order/${id}`,
+        query:{
+            id: id
+        }
     })
 }
 

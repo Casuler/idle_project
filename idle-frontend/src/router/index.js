@@ -51,6 +51,11 @@ const router = createRouter({
           path: 'release',
           name: 'operate-release',
           component : () => import('@/components/operate/ReleasePage.vue')
+        },
+        {
+          path: 'order/:id',
+          name: 'operate-order',
+          component: () => import('@/components/operate/OrderPage.vue')
         }
       ]
     }
