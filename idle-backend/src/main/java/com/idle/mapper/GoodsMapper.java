@@ -16,10 +16,11 @@ public interface GoodsMapper {
     @Select("select * from db_goods where id = #{id}")
     List<Goods> findGoodsById(Integer id);
 
-    @Insert("insert into db_goods (id, publisherId, productName, price, category, introduce, picture) values " +
-            "(#{id}, #{publisherId}, #{productName}, #{price}, #{category}, #{introduce}, #{picture})")
+    @Insert("insert into db_goods (id, publisherId, productName, price, category, introduce, picture, createTime)" +
+            " values (#{id}, #{publisherId}, #{productName}, #{price}, #{category}, #{introduce}," +
+            " #{picture}, #{createTime})")
     int createGoods(Integer id, Integer publisherId, String productName, BigDecimal price, String category,
-                    String introduce, String picture);
+                    String introduce, String picture, String createTime);
 
     @Update("update db_goods set productName = #{productName}, price = #{price}, category = #{price}, introduce = " +
             "#{introduce}, picture = #{picture} where id = #{id}")
@@ -38,6 +39,7 @@ public interface GoodsMapper {
     @Select("select * from db_goods where category = #{category}")
     List<Goods> getGoodsByCategory(String category);
 
-    @Select("select * from db_goods where db_goods.productName like CONCAT('%', #{productName}, '%')")
-    List<Goods> getGoodsByProductName(String productName);
+    @Select("select * from db_goods where db_goods.productName like CONCAT('%', #{search}, '%')" +
+            "OR db_goods.introduce like CONCAT('%', #{search}, '%')")
+    List<Goods> getGoodsByProductNameOrIntroduce(String search);
 }

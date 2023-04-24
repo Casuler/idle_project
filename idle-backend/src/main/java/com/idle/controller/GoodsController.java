@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -23,8 +25,11 @@ public class GoodsController{
     //发布成功，但系统内部错误
     @PostMapping("/set-goods")
     public RestBean<String> setGoods(Integer id, Integer publisherId, String productName, BigDecimal price,
-                                     String category, String introduce, String picture){
-        boolean goods = goodsService.createGoods(id, publisherId, productName, price, category, introduce,picture);
+                                     String category, String introduce, String picture, String createTime){
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String time = formatter.format(date);
+        boolean goods = goodsService.createGoods(id, publisherId, productName, price, category, introduce,picture,time);
         if(goods) return RestBean.success("商品发布成功");
         else return RestBean.failure(400,"商品发布失败，请联系管理员");
     }
@@ -44,9 +49,9 @@ public class GoodsController{
     }
 
     @PostMapping("get-good-name")
-    public RestBean<?> getGoodsByProductName(String productName){
-        List<Goods> goods = goodsService.getGoodsByProductName(productName);
-        if(goods == null || goods.size() == 0) return RestBean.failure(401,"查询的商品还未上架");
+    public RestBean<?> getGoodsByProductName(String search){
+        List<Goods> goods = goodsService.getGoodsByProductNameOrIntroduce(search);
+        if(goods == null || goods.size() == 0) return RestBean.failure(401,"未查询到相关商品");
         else return RestBean.success(goods);
     }
 

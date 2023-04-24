@@ -13,4 +13,6 @@ public class Goods {
     String category;
     String introduce;
     String picture;
+    String createTime;
+    Integer status;
 }

@@ -27,8 +27,8 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public boolean createGoods(Integer id, Integer publisherId, String productName, BigDecimal price, String category,
-                             String introduce, String picture) {
-        return goodsMapper.createGoods(id, publisherId, productName, price, category, introduce, picture) > 0;
+                             String introduce, String picture, String createTime) {
+        return goodsMapper.createGoods(id, publisherId, productName, price, category, introduce, picture, createTime) > 0;
     }
 
     public boolean updateGoods(Integer id, String productName, BigDecimal price, String category,
@@ -55,7 +55,7 @@ public class GoodsServiceImpl implements GoodsService {
         return goodsMapper.getGoodsByCategory(category);
     }
 
-    public List<Goods> getGoodsByProductName(String productName) {
-        return goodsMapper.getGoodsByProductName(productName);
+    public List<Goods> getGoodsByProductNameOrIntroduce(String search) {
+        return goodsMapper.getGoodsByProductNameOrIntroduce(search);
     }
 }

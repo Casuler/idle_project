@@ -11,7 +11,7 @@ public interface GoodsService {
     List<Goods> findGoodsById(Integer id) throws Exception;
 
     boolean createGoods(Integer id, Integer publisherId, String productName, BigDecimal price, String category,
-                      String introduce, String picture);
+                      String introduce, String picture, String createTime);
 
     boolean updateGoods(Integer id, String productName, BigDecimal price, String category,
                       String introduce, String picture);
@@ -24,5 +24,5 @@ public interface GoodsService {
 
     List<Goods> getGoodsByCategory(String category);
 
-    List<Goods> getGoodsByProductName(String productName);
+    List<Goods> getGoodsByProductNameOrIntroduce(String search);
 }

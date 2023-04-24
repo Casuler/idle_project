@@ -20,12 +20,12 @@ public class OrdersController {
     OrderService orderService;
 
     @PostMapping("/set-order")
-    public RestBean<String> setOrder(Integer id, String createTime, String seller, String buyer, String payment, Integer status,
+    public RestBean<String> setOrder(Integer id, String createTime, String seller, String buyer, String payment,
                                      BigDecimal price){
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time = formatter.format(date);
-        boolean orders = orderService.createOrder(id, time, seller, buyer, payment, status, price);
+        boolean orders = orderService.createOrder(id, time, seller, buyer, payment, price);
         if(orders) return RestBean.success("订单创建成功");
         else return RestBean.failure(401,"订单创建失败，请联系管理员");
     }

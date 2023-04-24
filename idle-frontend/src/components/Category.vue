@@ -68,7 +68,7 @@ const goDetail = (item) => {
 
 const searchGoods = () => {
     post('/api/goods/get-good-name',{
-        productName: form.search
+        search: form.search
     },message =>{
         ElMessage.success("搜索成功")
         form.goodsList = message
