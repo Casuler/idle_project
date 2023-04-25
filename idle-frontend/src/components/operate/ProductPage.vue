@@ -25,9 +25,9 @@
         <el-scrollbar wrap-style="overflow-x:hidden;" style="width: 100%;" height="720px">
             <div class="product">
                 <div class="product-container" v-for="item in form.detail" :key="item.id">
-                    <h2 v-if="route.query.status==1">{{ item.productName }}</h2>
+                    <h2 v-if="route.query.status==1">{{ item.product_name }}</h2>
                     <div v-else>
-                        <h2 style="text-decoration: line-through">{{item.productName}}</h2>
+                        <h2 style="text-decoration: line-through">{{item.product_name}}</h2>
                         <span style="margin-left: 20px;color: red; font-size: 24px;font-weight: bold">该商品已下架</span>
                     </div>
 
@@ -39,7 +39,7 @@
                         <img :src="item.picture" alt=""/>
                     </div>
                 </div>
-                <div class="button" v-if="uid !== publisherId">
+                <div class="button" v-if="uid !== publisher_id">
                 </div>
                 <div class="button" v-else>
                     <span style="cursor:pointer;color: deepskyblue">编辑商品</span>
@@ -62,7 +62,7 @@ const store = useStore()
 const route = useRoute()
 const id = route.query.id
 const uid = route.query.uid
-const publisherId = route.query.publisherId
+const publisher_id = route.query.publisher_id
 const status = route.query.status
 
 const form = reactive({
@@ -79,7 +79,7 @@ const getGoodsById = () => {
 
 const getPublisher = () => {
     post('/api/goods/get-publisher', {
-        publisherId: publisherId
+        publisher_id: publisher_id
     },message => {
         form.publisher = message
     })

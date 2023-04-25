@@ -9,5 +9,5 @@ public interface OrderService {
 
     List<Orders> getUserOrder(String username);
 
-    boolean createOrder(Integer id, String createTime, String seller, String buyer, String payment, BigDecimal price);
+    boolean createOrder(Integer id, String create_time, String seller, String buyer, String payment, BigDecimal price);
 }

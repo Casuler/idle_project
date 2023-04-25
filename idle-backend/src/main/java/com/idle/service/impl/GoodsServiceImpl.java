@@ -26,14 +26,14 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public boolean createGoods(Integer id, Integer publisherId, String productName, BigDecimal price, String category,
-                             String introduce, String picture, String createTime) {
-        return goodsMapper.createGoods(id, publisherId, productName, price, category, introduce, picture, createTime) > 0;
+    public boolean createGoods(Integer id, Integer publisher_id, String product_name, BigDecimal price, String category,
+                             String introduce, String picture, String create_time) {
+        return goodsMapper.createGoods(id, publisher_id, product_name, price, category, introduce, picture, create_time) > 0;
     }
 
-    public boolean updateGoods(Integer id, String productName, BigDecimal price, String category,
+    public boolean updateGoods(Integer id, String product_name, BigDecimal price, String category,
                            String introduce, String picture) {
-        return goodsMapper.updateGoods(id,productName,price,category,introduce,picture) > 0;
+        return goodsMapper.updateGoods(id,product_name,price,category,introduce,picture) > 0;
     }
 
     @Override
@@ -47,13 +47,13 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public List<Goods> getGoodsByPublisherId(Integer publisherId) {
-        return goodsMapper.getGoodsByPublisherId(publisherId);
+    public List<Goods> getGoodsByPublisherId(Integer publisher_id) {
+        return goodsMapper.getGoodsByPublisherId(publisher_id);
     }
 
     @Override
-    public AccountUser getUserByPublisherId(Integer publisherId){
-        return goodsMapper.getUserByPublisherId(publisherId);
+    public AccountUser getUserByPublisherId(Integer publisher_id){
+        return goodsMapper.getUserByPublisherId(publisher_id);
     }
 
     public List<Goods> getGoodsByCategory(String category){

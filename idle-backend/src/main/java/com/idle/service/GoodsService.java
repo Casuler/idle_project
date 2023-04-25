@@ -10,19 +10,19 @@ public interface GoodsService {
 
     List<Goods> findGoodsById(Integer id) throws Exception;
 
-    boolean createGoods(Integer id, Integer publisherId, String productName, BigDecimal price, String category,
-                      String introduce, String picture, String createTime);
+    boolean createGoods(Integer id, Integer publisher_id, String product_name, BigDecimal price, String category,
+                      String introduce, String picture, String create_time);
 
-    boolean updateGoods(Integer id, String productName, BigDecimal price, String category,
+    boolean updateGoods(Integer id, String product_name, BigDecimal price, String category,
                       String introduce, String picture);
 
     boolean updateStatus(Integer id, Integer status);
 
     List<Goods> getAllGoods();
 
-    List<Goods> getGoodsByPublisherId(Integer publisherId);
+    List<Goods> getGoodsByPublisherId(Integer publisher_id);
 
-    AccountUser getUserByPublisherId(Integer publisherId);
+    AccountUser getUserByPublisherId(Integer publisher_id);
 
     List<Goods> getGoodsByCategory(String category);
 

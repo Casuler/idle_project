@@ -12,7 +12,7 @@
             </div>
             <div class="status-item">
                 <label>下单时间：</label>
-                <span>{{ state.detail.createTime }}</span>
+                <span>{{ state.detail.create_time }}</span>
             </div>
             <el-button v-if="state.detail.orderStatus == 3" style="margin-bottom: 10px" color="#1baeae" block @click="handleConfirmOrder(state.detail.orderNo)">确认收货</el-button>
             <el-button v-if="state.detail.orderStatus == 0" style="margin-bottom: 10px" color="#1baeae" block @click="showPayFn">去支付</el-button>

@@ -11,7 +11,7 @@
       </div>
       <div class="product">
           <el-form style="margin-top: 20px">
-              <el-input type="text" style="width: 270px" v-model="form.productName" placeholder="商品名称"></el-input>
+              <el-input type="text" style="width: 270px" v-model="form.product_name" placeholder="商品名称"></el-input>
               <el-select v-model="value" style="width: 100px" placeholder="商品分类">
                   <el-option
                           v-for="item in category"
@@ -68,7 +68,7 @@ const { proxy } = getCurrentInstance();
 const upload = ref()
 const form = reactive({
     publisher: [],
-    productName: '',
+    product_name: '',
     price: '',
     fileUrl: '',
     introduce: ''
@@ -143,8 +143,8 @@ const getMe = () => {
 
 const releaseGoods = () => {
     post('/api/goods/set-goods',{
-        publisherId: form.publisher.id,
-        productName: form.productName,
+        publisher_id: form.publisher.id,
+        product_name: form.product_name,
         price: form.price,
         category: value.value,
         introduce: form.introduce,

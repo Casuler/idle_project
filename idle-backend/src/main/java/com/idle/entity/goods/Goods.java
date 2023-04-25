@@ -7,12 +7,12 @@ import java.math.BigDecimal;
 @Data
 public class Goods {
     Integer id;
-    Integer publisherId;
-    String productName;
+    Integer publisher_id;
+    String product_name;
     BigDecimal price;
     String category;
     String introduce;
     String picture;
-    String createTime;
+    String create_time;
     Integer status;
 }

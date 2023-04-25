@@ -20,7 +20,7 @@ public class OrdersController {
     OrderService orderService;
 
     @PostMapping("/set-order")
-    public RestBean<String> setOrder(Integer id, String createTime, String seller, String buyer, String payment,
+    public RestBean<String> setOrder(Integer id, String create_time, String seller, String buyer, String payment,
                                      BigDecimal price){
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

@@ -17,7 +17,7 @@
                      @click="goDetail(item)">
                     <img :src="item.picture" alt=""/>
                     <div class="good-desc">
-                        <div class="title">{{item.productName}}</div>
+                        <div class="title">{{item.product_name}}</div>
                         <div class="price">￥ {{item.price.toFixed(2)}}</div>
                         <div style="color: deepskyblue" v-if="item.status">上架中</div>
                         <div style="color: red" v-else>已下架</div>
@@ -71,7 +71,7 @@ const goDetail = (item) => {
         path:`/product/${item.id}`,
         query: {
             id: item.id,
-            publisherId: item.publisherId,
+            publisher_id: item.publisher_id,
             uid: form.user.id,
             status: item.status
         }
