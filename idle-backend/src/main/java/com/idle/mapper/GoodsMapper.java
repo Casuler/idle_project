@@ -26,6 +26,9 @@ public interface GoodsMapper {
             "#{introduce}, picture = #{picture} where id = #{id}")
     int updateGoods(Integer id,String productName, BigDecimal price, String category, String introduce, String picture);
 
+    @Update("update db_goods set status = '0' where id = #{id}")
+    int updateStatus(Integer id, Integer status);
+
     @Select("select * from db_goods")
     List<Goods> getAllGoods();
 

@@ -16,7 +16,7 @@
                   </div>
               </div>
             <div class="card-title">
-                <el-button type="danger" plain @click="router.push('/index/release')">
+                <el-button type="danger" plain @click="router.push('/release')">
                     <el-icon><Goods/></el-icon>
                     发布闲置
                 </el-button>

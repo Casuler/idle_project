@@ -6,6 +6,7 @@ public interface AuthorizeService extends UserDetailsService {
 
     String sendValidateEmail(String email, String sessionId, boolean hasAccount);
     String validateAndRegister(String username, String password, String email, String code, String sessionId);
+    boolean upgradeNickname(String nickname,String email);
     String validateOnly(String email, String code, String sessionId);
     boolean resetPassword(String password, String email);
 

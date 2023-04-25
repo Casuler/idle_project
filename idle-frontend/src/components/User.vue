@@ -2,7 +2,8 @@
     <div class="user-container">
         <el-dropdown trigger="click">
             <div class="user-wrapper">
-                <div class="user-name">{{ form.user.username }}</div>
+                <div class="user-name" v-if="form.user.nickname!=null">{{ form.user.nickname }}</div>
+                <div class="user-name" v-else>{{form.user.username}}</div>
                 <img
                         :src="
             form.user.avatar ||
@@ -15,6 +16,10 @@
             </div>
             <template #dropdown>
                 <el-dropdown-menu>
+                    <el-dropdown-item @click="goMyspace()">
+                        <el-icon><User/></el-icon>
+                        个人中心
+                    </el-dropdown-item>
                     <el-dropdown-item @click="warningMessage">
                         <el-icon><ChatDotRound/></el-icon>
                         消息
@@ -35,7 +40,7 @@ import { useStore } from '@/stores/store'
 import { useRouter} from 'vue-router'
 import {get} from "@/request/request";
 import {ElMessage} from 'element-plus'
-import {ChatDotRound, SwitchButton} from '@element-plus/icons-vue'
+import {ChatDotRound, SwitchButton, User} from '@element-plus/icons-vue'
 import {warningMessage} from "@/components/index";
 
 const router = useRouter()
@@ -57,6 +62,10 @@ const getMe = () => {
     get('/api/user/me',(message)=> {
         form.user = message
     })
+}
+
+const goMyspace = () => {
+    router.push("/myspace")
 }
 onMounted(async () => {
    await getMe()

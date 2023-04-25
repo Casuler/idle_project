@@ -1,0 +1,87 @@
+<script setup>
+import {EditPen,User,Edit,Avatar,Document,TakeawayBox,Goods} from "@element-plus/icons-vue"
+</script>
+
+<template>
+<div>
+    <el-container>
+        <el-aside width="200px">
+            <el-menu :default-openeds="['1']">
+                <el-sub-menu index="1">
+                    <template #title>
+                        <el-icon><EditPen/></el-icon>
+                        <span>信息管理</span>
+                    </template>
+                    <el-menu-item-group>
+                        <router-link class="alink" to="/myspace/showinfo">
+                            <el-menu-item index="1-1">
+                                <el-icon><User/></el-icon>
+                                基本信息
+                            </el-menu-item>
+                        </router-link>
+
+                        <router-link class="alink" to="/myspace/infoeditor">
+                            <el-menu-item index="1-2">
+                                <el-icon><Edit/></el-icon>
+                                信息修改
+                            </el-menu-item>
+                        </router-link>
+
+                        <router-link class="alink" to="/myspace/avatar">
+                            <el-menu-item index="1-3">
+                                <el-icon><Avatar/></el-icon>
+                                头像修改
+                            </el-menu-item>
+                        </router-link>
+                    </el-menu-item-group>
+                </el-sub-menu>
+                <el-sub-menu index="2">
+                    <template #title>
+                        <el-icon><Document/></el-icon>
+                        商品管理
+                    </template>
+                    <el-menu-item-group>
+                        <router-link class="alink" to="/myspace/myorder">
+                            <el-menu-item index="2-1">
+                                <el-icon><TakeawayBox/></el-icon>
+                                我的订单
+                            </el-menu-item>
+                        </router-link>
+                        <router-link class="alink" to="/myspace/mygood">
+                            <el-menu-item index="2-2">
+                                <el-icon><Goods/></el-icon>
+                                我的商品
+                            </el-menu-item>
+                        </router-link>
+                    </el-menu-item-group>
+                </el-sub-menu>
+            </el-menu>
+        </el-aside>
+        <el-container
+            style="background-color:#f2f4f8;">
+            <el-main>
+                <div>
+                    <router-view></router-view>
+                </div>
+            </el-main>
+        </el-container>
+    </el-container>
+</div>
+</template>
+
+<style lang="less">
+.el-header{
+    background-color: #e5efe2;
+    color: black;
+    line-height: 60px;
+}
+.el-aside{
+    color: black;
+}
+.router-link-active{
+    text-decoration: none;
+}
+.alink{
+    text-decoration: none;
+}
+</style>

@@ -19,6 +19,8 @@
                     <div class="good-desc">
                         <div class="title">{{item.productName}}</div>
                         <div class="price">￥ {{item.price.toFixed(2)}}</div>
+                        <div style="color: deepskyblue" v-if="item.status">上架中</div>
+                        <div style="color: red" v-else>已下架</div>
                     </div>
                 </div>
             </div>
@@ -35,6 +37,7 @@ import {Search} from '@element-plus/icons-vue'
 const form = reactive({
     goodsList:[],
     category: [],
+    user:[],
     search: ''
 })
 const getGoods = () => {
@@ -44,8 +47,15 @@ const getGoods = () => {
     })
 }
 
+const getMe = () => {
+    get('/api/user/me',(message)=> {
+        form.user = message
+    })
+}
+
 onMounted(async () =>{
     await getGoods()
+    await getMe()
 })
 
 const getCategory = () => {
@@ -58,10 +68,12 @@ const getCategory = () => {
 
 const goDetail = (item) => {
     router.push({
-        path:`/index/product/${item.id}`,
+        path:`/product/${item.id}`,
         query: {
             id: item.id,
-            publisherId: item.publisherId
+            publisherId: item.publisherId,
+            uid: form.user.id,
+            status: item.status
         }
     })
 }
@@ -72,10 +84,9 @@ const searchGoods = () => {
     },message =>{
         ElMessage.success("搜索成功")
         form.goodsList = message
+        form.category = "搜索'" + form.search + "'"
     })
 }
-
-
 </script>
 
 <style lang="less" scoped>

@@ -84,4 +84,11 @@ public class AuthorizeController {
           return RestBean.failure(500,"内部错误，请联系管理员！");
       }
     }
+
+    @PostMapping("/upgrade-nickname")
+    public RestBean<String> upgradeNickname(String nickname, String email){
+        boolean name = service.upgradeNickname(nickname,email);
+        if(name) return RestBean.success("昵称修改成功");
+        else return RestBean.failure(500,"内部错误，请联系管理员");
+    }
 }

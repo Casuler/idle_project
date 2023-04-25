@@ -2,8 +2,9 @@
     <div>
         <div class="publisher">
             <img :src="form.publisher.avatar" class="user-avatar" alt=""/>
-            <span>{{ form.publisher.username }}</span>
-            <div class="buy" v-for="item in form.detail" :key="item.id">
+            <span v-if="form.publisher.nickname!=null">{{ form.publisher.nickname }}</span>
+            <span v-else>{{ form.publisher.username }}</span>
+            <div class="buy" v-for="item in form.detail" :key="item.id" v-if="status = 1">
                 <a class="price">￥{{ item.price }}</a>
                 <el-button type="danger"
                            plain
@@ -11,11 +12,25 @@
                            @click="goOrder(form.detail.id)"
                 >立即购买</el-button>
             </div>
+            <div class="buy"  v-for="item in form.detail" :key="item.id" v-else>
+                <a class="price">￥{{ item.price }}</a>
+                <el-button type="danger"
+                           plain
+                           style="width: 70px;margin-left: 10px;margin-top: -10px"
+                           @click="goOrder(form.detail.id)"
+                           disabled
+                >立即购买</el-button>
+            </div>
         </div>
         <el-scrollbar wrap-style="overflow-x:hidden;" style="width: 100%;" height="720px">
             <div class="product">
                 <div class="product-container" v-for="item in form.detail" :key="item.id">
-                    <h2>{{ item.productName }}</h2>
+                    <h2 v-if="route.query.status==1">{{ item.productName }}</h2>
+                    <div v-else>
+                        <h2 style="text-decoration: line-through">{{item.productName}}</h2>
+                        <span style="margin-left: 20px;color: red; font-size: 24px;font-weight: bold">该商品已下架</span>
+                    </div>
+
                     <div class="split-line"></div>
                     <div class="profile">
                         <span>{{item.introduce}}</span>
@@ -24,28 +39,11 @@
                         <img :src="item.picture" alt=""/>
                     </div>
                 </div>
-            </div>
-            <div class="comment">
-                <div class="comment-title">
-                    <h2>评论区</h2>
+                <div class="button" v-if="uid !== publisherId">
                 </div>
-                <div class="split-line"></div>
-                <div class="comment-box">
-                    <div class="user-box">
-                        <img
-                            :src="
-            userInfo.avatar ||
-            'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif' +
-              '?imageView2/1/w/80/h/80'
-          "
-                            class="user-avatar"
-                            alt=""
-                        />
-                        <span>{{userInfo.username}}</span>
-                    </div>
-                    <div class="comment-container">
-                        <span>非常好东西，爱来自中国</span>
-                    </div>
+                <div class="button" v-else>
+                    <span style="cursor:pointer;color: deepskyblue">编辑商品</span>
+                    <span style="cursor:pointer;margin-left: 5px;color: red" @click="updateStatus()" v-if="route.query.status==1">下架商品</span>
                 </div>
             </div>
         </el-scrollbar>
@@ -53,21 +51,23 @@
 </template>
 
 <script setup>
-import {reactive, computed, onMounted} from 'vue'
+import {reactive, onMounted} from 'vue'
 import {useStore} from "@/stores/store";
 import {useRoute} from 'vue-router'
+import {ElMessage} from 'element-plus'
 import {post} from "@/request/request";
 import router from "@/router";
 
 const store = useStore()
-const userInfo = computed(() => store.auth.user)
 const route = useRoute()
 const id = route.query.id
+const uid = route.query.uid
 const publisherId = route.query.publisherId
+const status = route.query.status
 
 const form = reactive({
     detail: [],
-    publisher: []
+    publisher: [],
 })
 const getGoodsById = () => {
     post('/api/goods/find-goods', {
@@ -87,10 +87,20 @@ const getPublisher = () => {
 
 const goOrder = () => {
     router.push({
-        path:`/index/order/${id}`,
+        path:`/order/${id}`,
         query:{
             id: id
         }
+    })
+}
+
+const updateStatus = () =>{
+    post('/api/goods/update-status',{
+        id: id,
+        status: status
+    },message =>{
+        ElMessage.success(message)
+        router.push('/index')
     })
 }
 
@@ -153,13 +163,13 @@ onMounted(async () => {
 
 .image-box{
     width: 100%;
-    height: 400px;
-    margin-top: 20px;
+    height: 100%;
+    margin-top: 10px;
 }
 
 .image-box img{
     margin-left: 25%;
-    width: 460px;
+    width: 450px;
     height: 500px;
 }
 
@@ -188,40 +198,7 @@ onMounted(async () => {
     background-color: #dadada;
 }
 
-.comment{
-    width: 1140px;
-    height: 100%;
-    margin: 0 auto;
-    border-radius: 12px;
-    border: 1px solid #e8e8e8;
-    background-color: #fff;
-}
-
-.comment-title{
-    margin-left: 20px;
-}
-
-.comment-box{
-    display: flex;
-    margin-left: 20px;
-}
-
-.user-box{
-    display: flex;
-    width: 180px;
-    height: 80px;
-    border-right: 1px solid #dadada;
-}
-
-.user-box span{
-    height: 80px;
-    line-height: 80px;
-    text-align: center;
-}
-
-.comment-container{
-    margin-left: 20px;
-    height: 80px;
-    line-height: 80px;
+.button{
+    float: right;
 }
 </style>

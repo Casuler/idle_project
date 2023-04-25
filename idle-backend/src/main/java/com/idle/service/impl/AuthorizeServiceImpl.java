@@ -130,4 +130,9 @@ public class AuthorizeServiceImpl implements AuthorizeService {
         password = encoder.encode(password);
         return mapper.resetPasswordByEmail(password, email) > 0;
     }
+
+    @Override
+    public boolean upgradeNickname(String nickname, String email) {
+        return mapper.upgradeNickname(nickname, email) > 0;
+    }
 }

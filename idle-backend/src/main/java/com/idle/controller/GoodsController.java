@@ -85,4 +85,11 @@ public class GoodsController{
        else return RestBean.failure(401,"当前商品不存在");
     }
 
+    @PostMapping("/update-status")
+    public RestBean<String> updateStatus(Integer id, Integer status){
+        boolean goods = goodsService.updateStatus(id, status);
+        if(goods) return RestBean.success("商品下架成功");
+        else return RestBean.failure(500,"内部错误，请联系管理员");
+    }
+
 }

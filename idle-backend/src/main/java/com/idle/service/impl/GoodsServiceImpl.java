@@ -37,6 +37,11 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
+    public boolean updateStatus(Integer id, Integer status) {
+        return goodsMapper.updateStatus(id, status) > 0;
+    }
+
+    @Override
     public List<Goods> getAllGoods() {
         return goodsMapper.getAllGoods();
     }

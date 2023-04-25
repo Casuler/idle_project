@@ -37,25 +37,57 @@ const router = createRouter({
           component : () => import('@/components/operate/HomePage.vue')
         },
         {
-          path: 'community',
+          path: '/community',
           name: 'operate-community',
           component : () => import('@/components/operate/CommunityPage.vue')
         },
         {
-          path: 'product/:id',
+          path: '/product/:id',
           name: 'operate-product',
           component : () => import('@/components/operate/ProductPage.vue'),
           props: true
         },
         {
-          path: 'release',
+          path: '/release',
           name: 'operate-release',
           component : () => import('@/components/operate/ReleasePage.vue')
         },
         {
-          path: 'order/:id',
+          path: '/order/:id',
           name: 'operate-order',
           component: () => import('@/components/operate/OrderPage.vue')
+        },
+        {
+          path: '/myspace',
+          name: 'account-myspace',
+          component: () => import("@/components/myspace/MySpacePage.vue"),
+          children:[
+            {
+              path:'showinfo',
+              name: 'account-showinfo',
+              component: () => import("@/components/myspace/ShowInfo.vue")
+            },
+            {
+              path:'infoeditor',
+              name:'account-infoeditor',
+              component:() => import("@/components/myspace/InfoEditor.vue")
+            },
+            {
+              path:'avatar',
+              name:'account-avatar',
+              component:() => import("@/components/myspace/Avatar.vue")
+            },
+            {
+              path: 'myorder',
+              name: 'account-myorder',
+              component: () => import("@/components/myspace/MyOrder.vue")
+            },
+            {
+              path: 'mygood',
+              name: 'account-mygood',
+              component: () => import("@/components/myspace/MyGood.vue")
+            }
+          ]
         }
       ]
     }
