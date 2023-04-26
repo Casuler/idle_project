@@ -83,7 +83,7 @@ const router = createRouter({
               component: () => import("@/components/myspace/MyOrder.vue")
             },
             {
-              path: 'mygood',
+              path: 'mygood/:id',
               name: 'account-mygood',
               component: () => import("@/components/myspace/MyGood.vue")
             }

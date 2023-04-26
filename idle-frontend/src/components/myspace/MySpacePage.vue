@@ -43,12 +43,12 @@
                                 我的订单
                             </el-menu-item>
                         </div>
-                        <router-link class="alink" to="/myspace/mygood">
+                        <div class="alink" @click="goMyGood()">
                             <el-menu-item index="2-2">
                                 <el-icon><Goods/></el-icon>
                                 我的商品
                             </el-menu-item>
-                        </router-link>
+                        </div>
                     </el-menu-item-group>
                 </el-sub-menu>
             </el-menu>
@@ -80,6 +80,14 @@ const goMyOrder = () => {
         path:  `/myspace/myorder/${form.user.id}`,
         query: {
             nickname: form.user.nickname
+        }
+    })
+}
+const goMyGood = () => {
+    router.push({
+        path:  `/myspace/mygood/${form.user.id}`,
+        query: {
+            publisher_id: form.user.id
         }
     })
 }
