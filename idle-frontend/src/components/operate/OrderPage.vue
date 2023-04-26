@@ -47,14 +47,14 @@
             <div :style="{ width: '90%', margin: '0 auto', padding: '20px 0' }">
                 <el-button :style="{ marginBottom: '10px' }" color="#1989fa" block @click="handlePayOrder(state.detail.orderNo, 1)">支付宝支付</el-button>
                 <el-button color="#4fc08d" block @click="handlePayOrder(state.detail.orderNo, 2)">微信支付</el-button>
-                <el-button color="#4fc08d" block @click="handlePayOrder(state.detail.orderNo, 2)">线下支付</el-button>
+                <el-button color="#4fc08d" block @click="handlePayOrder(state.detail.orderNo, 2)">线下交易</el-button>
             </div>
         </el-popover>
     </div>
 </template>
 
 <script setup>
-import { reactive, toRefs, onMounted } from 'vue'
+import { reactive} from 'vue'
 
 const state = reactive({
     detail: {},

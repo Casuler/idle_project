@@ -4,7 +4,7 @@
             <img :src="form.publisher.avatar" class="user-avatar" alt=""/>
             <span v-if="form.publisher.nickname!=null">{{ form.publisher.nickname }}</span>
             <span v-else>{{ form.publisher.username }}</span>
-            <div class="buy" v-for="item in form.detail" :key="item.id" v-if="status = 1">
+            <div class="buy" v-for="item in form.detail" :key="item.id" v-if="status === 1">
                 <a class="price">￥{{ item.price }}</a>
                 <el-button type="danger"
                            plain
@@ -25,7 +25,7 @@
         <el-scrollbar wrap-style="overflow-x:hidden;" style="width: 100%;" height="720px">
             <div class="product">
                 <div class="product-container" v-for="item in form.detail" :key="item.id">
-                    <h2 v-if="route.query.status==1">{{ item.product_name }}</h2>
+                    <h2 v-if="route.query.status==='1'">{{ item.product_name }}</h2>
                     <div v-else>
                         <h2 style="text-decoration: line-through">{{item.product_name}}</h2>
                         <span style="margin-left: 20px;color: red; font-size: 24px;font-weight: bold">该商品已下架</span>
@@ -43,7 +43,7 @@
                 </div>
                 <div class="button" v-else>
                     <span style="cursor:pointer;color: deepskyblue">编辑商品</span>
-                    <span style="cursor:pointer;margin-left: 5px;color: red" @click="updateStatus()" v-if="route.query.status==1">下架商品</span>
+                    <span style="cursor:pointer;margin-left: 5px;color: red" @click="updateStatus()" v-if="route.query.status==='1'">下架商品</span>
                 </div>
             </div>
         </el-scrollbar>
@@ -162,13 +162,13 @@ onMounted(async () => {
 }
 
 .image-box{
-    width: 100%;
-    height: 100%;
+    width: 450px;
+    height: 500px;
     margin-top: 10px;
 }
 
 .image-box img{
-    margin-left: 25%;
+    margin-left: 70%;
     width: 450px;
     height: 500px;
 }

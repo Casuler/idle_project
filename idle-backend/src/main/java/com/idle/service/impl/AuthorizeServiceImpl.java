@@ -132,7 +132,13 @@ public class AuthorizeServiceImpl implements AuthorizeService {
     }
 
     @Override
-    public boolean upgradeNickname(String nickname, String email) {
-        return mapper.upgradeNickname(nickname, email) > 0;
+    public boolean upgradeInfo(String nickname, String password,String email) {
+        password = encoder.encode(password);
+        return mapper.upgradeInfo(nickname, password, email) > 0;
+    }
+
+    @Override
+    public boolean upgradeAvatar(String avatar, Integer id) {
+        return mapper.upgradeAvatar(avatar, id) > 0;
     }
 }

@@ -85,10 +85,17 @@ public class AuthorizeController {
       }
     }
 
-    @PostMapping("/upgrade-nickname")
-    public RestBean<String> upgradeNickname(String nickname, String email){
-        boolean name = service.upgradeNickname(nickname,email);
-        if(name) return RestBean.success("昵称修改成功");
+    @PostMapping("/upgrade-info")
+    public RestBean<String> upgradeInfo(String nickname, String password,String email){
+        boolean Info = service.upgradeInfo(nickname,password,email);
+        if(Info) return RestBean.success("信息修改成功");
+        else return RestBean.failure(500,"内部错误，请联系管理员");
+    }
+
+    @PostMapping("/upgrade-avatar")
+    public  RestBean<String> upgradeAvatar(String avatar, Integer id){
+        boolean head = service.upgradeAvatar(avatar, id);
+        if(head) return RestBean.success("头像修改成功，请刷新页面查看");
         else return RestBean.failure(500,"内部错误，请联系管理员");
     }
 }

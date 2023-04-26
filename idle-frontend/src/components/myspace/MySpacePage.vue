@@ -1,7 +1,3 @@
-<script setup>
-import {EditPen,User,Edit,Avatar,Document,TakeawayBox,Goods} from "@element-plus/icons-vue"
-</script>
-
 <template>
 <div>
     <el-container>
@@ -41,12 +37,12 @@ import {EditPen,User,Edit,Avatar,Document,TakeawayBox,Goods} from "@element-plus
                         商品管理
                     </template>
                     <el-menu-item-group>
-                        <router-link class="alink" to="/myspace/myorder">
+                        <div class="alink" @click="goMyOrder()">
                             <el-menu-item index="2-1">
                                 <el-icon><TakeawayBox/></el-icon>
                                 我的订单
                             </el-menu-item>
-                        </router-link>
+                        </div>
                         <router-link class="alink" to="/myspace/mygood">
                             <el-menu-item index="2-2">
                                 <el-icon><Goods/></el-icon>
@@ -68,6 +64,36 @@ import {EditPen,User,Edit,Avatar,Document,TakeawayBox,Goods} from "@element-plus
     </el-container>
 </div>
 </template>
+
+<script setup>
+import {EditPen,User,Edit,Avatar,Document,TakeawayBox,Goods} from "@element-plus/icons-vue"
+import router from "@/router";
+import {reactive, onMounted} from 'vue'
+import {get} from "@/request/request";
+
+const form = reactive({
+    user:[]
+})
+
+const goMyOrder = () => {
+    router.push({
+        path:  `/myspace/myorder/${form.user.id}`,
+        query: {
+            nickname: form.user.nickname
+        }
+    })
+}
+
+const getMe = () => {
+    get('/api/user/me',(message)=> {
+        form.user = message
+    })
+}
+
+onMounted(async () => {
+    await getMe()
+})
+</script>
 
 <style lang="less">
 .el-header{

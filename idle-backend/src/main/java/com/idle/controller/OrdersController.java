@@ -31,9 +31,23 @@ public class OrdersController {
     }
 
     @PostMapping("/get-own-order")
-    public RestBean<?> getUserOrder(String username){
-        List<Orders> orders = orderService.getUserOrder(username);
+    public RestBean<?> getUserOrder(String nickname){
+        List<Orders> orders = orderService.getUserOrder(nickname);
         if(orders == null || orders.size() == 0) return RestBean.failure(401,"用户还未创建订单");
         else return RestBean.success(orders);
+    }
+
+    @PostMapping("/get-id-order")
+    public RestBean<?> getOrderById(Integer id, String nickname){
+        List<Orders> orders = orderService.getOrderById(id,nickname);
+        if(orders == null || orders.size() == 0) return RestBean.failure(401,"未查询到指定订单");
+        else return RestBean.success(orders);
+    }
+
+    @PostMapping("/delete-order")
+    public RestBean<String> deleteOrder(Integer id){
+        boolean status = orderService.deleteOrder(id);
+        if(status) return RestBean.success("订单删除成功");
+        else return RestBean.failure(500,"内部错误，请联系管理员");
     }
 }

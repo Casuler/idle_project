@@ -1,22 +1,3 @@
-<script setup>
-import {reactive, onMounted} from 'vue'
-import {get} from "@/request/request";
-
-const form = reactive({
-    user:[]
-})
-
-const getMe = () => {
-    get('/api/user/me',(message)=> {
-        form.user = message
-    })
-}
-
-onMounted(async () => {
-    await getMe()
-})
-</script>
-
 <template>
 <div class="content">
     <div>
@@ -38,6 +19,25 @@ onMounted(async () => {
     </el-descriptions>
 </div>
 </template>
+
+<script setup>
+import {reactive, onMounted} from 'vue'
+import {get} from "@/request/request";
+
+const form = reactive({
+    user:[]
+})
+
+const getMe = () => {
+    get('/api/user/me',(message)=> {
+        form.user = message
+    })
+}
+
+onMounted(async () => {
+    await getMe()
+})
+</script>
 
 <style scoped>
 .content{

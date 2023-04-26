@@ -22,7 +22,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Orders> getUserOrder(String username) {
-        return ordersMapper.getUserOrders(username);
+    public List<Orders> getUserOrder(String nickname) {
+        return ordersMapper.getUserOrders(nickname);
+    }
+
+    @Override
+    public List<Orders> getOrderById(Integer id, String nickname) {
+        return ordersMapper.getOrderById(id, nickname);
+    }
+
+    @Override
+    public boolean deleteOrder(Integer id) {
+        return ordersMapper.deleteOrder(id) > 0;
     }
 }

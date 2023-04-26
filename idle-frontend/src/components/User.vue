@@ -4,15 +4,7 @@
             <div class="user-wrapper">
                 <div class="user-name" v-if="form.user.nickname!=null">{{ form.user.nickname }}</div>
                 <div class="user-name" v-else>{{form.user.username}}</div>
-                <img
-                        :src="
-            form.user.avatar ||
-            'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif' +
-              '?imageView2/1/w/80/h/80'
-          "
-                        class="user-avatar"
-                        alt=""
-                />
+                <img :src="form.user.avatar" class="user-avatar" alt=""/>
             </div>
             <template #dropdown>
                 <el-dropdown-menu>
