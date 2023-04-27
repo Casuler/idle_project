@@ -27,7 +27,7 @@ public interface GoodsMapper {
     int updateGoods(Integer id,String product_name, BigDecimal price, String category, String introduce, String picture);
 
     @Update("update db_goods set status = '0' where id = #{id}")
-    int updateStatus(Integer id, Integer status);
+    int updateStatus(Integer id);
 
     @Select("select * from db_goods")
     List<Goods> getAllGoods();
@@ -45,4 +45,6 @@ public interface GoodsMapper {
     @Select("select * from db_goods where db_goods.product_name like CONCAT('%', #{search}, '%')" +
             "OR db_goods.introduce like CONCAT('%', #{search}, '%')")
     List<Goods> getGoodsByProductNameOrIntroduce(String search);
+    @Select("select price from db_goods where id = #{id}")
+    String getPriceById(Integer id);
 }

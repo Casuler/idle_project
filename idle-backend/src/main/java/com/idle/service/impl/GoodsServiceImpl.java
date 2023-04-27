@@ -37,8 +37,8 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public boolean updateStatus(Integer id, Integer status) {
-        return goodsMapper.updateStatus(id, status) > 0;
+    public boolean updateStatus(Integer id) {
+        return goodsMapper.updateStatus(id) > 0;
     }
 
     @Override
@@ -62,5 +62,10 @@ public class GoodsServiceImpl implements GoodsService {
 
     public List<Goods> getGoodsByProductNameOrIntroduce(String search) {
         return goodsMapper.getGoodsByProductNameOrIntroduce(search);
+    }
+
+    @Override
+    public String getPriceById(Integer id) {
+        return goodsMapper.getPriceById(id);
     }
 }

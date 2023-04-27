@@ -141,4 +141,9 @@ public class AuthorizeServiceImpl implements AuthorizeService {
     public boolean upgradeAvatar(String avatar, Integer id) {
         return mapper.upgradeAvatar(avatar, id) > 0;
     }
+
+    @Override
+    public boolean upgradeAddress(String address, Integer id) {
+        return mapper.upgradeAddress(address, id) > 0;
+    }
 }

@@ -86,10 +86,15 @@ public class GoodsController{
     }
 
     @PostMapping("/update-status")
-    public RestBean<String> updateStatus(Integer id, Integer status){
-        boolean goods = goodsService.updateStatus(id, status);
+    public RestBean<String> updateStatus(Integer id){
+        boolean goods = goodsService.updateStatus(id);
         if(goods) return RestBean.success("商品下架成功");
         else return RestBean.failure(500,"内部错误，请联系管理员");
     }
 
+    @PostMapping("/get-price")
+    public RestBean<String> getPriceById(Integer id){
+        String price = goodsService.getPriceById(id);
+        return RestBean.success(price);
+    }
 }

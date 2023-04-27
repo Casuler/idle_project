@@ -16,7 +16,7 @@ public interface GoodsService {
     boolean updateGoods(Integer id, String product_name, BigDecimal price, String category,
                       String introduce, String picture);
 
-    boolean updateStatus(Integer id, Integer status);
+    boolean updateStatus(Integer id);
 
     List<Goods> getAllGoods();
 
@@ -27,4 +27,6 @@ public interface GoodsService {
     List<Goods> getGoodsByCategory(String category);
 
     List<Goods> getGoodsByProductNameOrIntroduce(String search);
+
+    String getPriceById(Integer id);
 }

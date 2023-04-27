@@ -93,9 +93,16 @@ public class AuthorizeController {
     }
 
     @PostMapping("/upgrade-avatar")
-    public  RestBean<String> upgradeAvatar(String avatar, Integer id){
+    public RestBean<String> upgradeAvatar(String avatar, Integer id){
         boolean head = service.upgradeAvatar(avatar, id);
         if(head) return RestBean.success("头像修改成功，请刷新页面查看");
+        else return RestBean.failure(500,"内部错误，请联系管理员");
+    }
+
+    @PostMapping("/upgrade-address")
+    public RestBean<String> upgradeAddress(String address, Integer id){
+        boolean location = service.upgradeAddress(address, id);
+        if(location) return RestBean.success(address);
         else return RestBean.failure(500,"内部错误，请联系管理员");
     }
 }

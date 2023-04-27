@@ -1,63 +1,214 @@
 <template>
-    <div class="order-detail-box">
-        <header :name="'订单详情'" @callback="close"></header>
-        <div class="order-status">
-            <div class="status-item">
-                <label>订单状态：</label>
-                <span>{{ state.detail.orderStatusString }}</span>
-            </div>
-            <div class="status-item">
-                <label>订单编号：</label>
-                <span>{{ state.detail.orderNo }}</span>
-            </div>
-            <div class="status-item">
-                <label>下单时间：</label>
-                <span>{{ state.detail.create_time }}</span>
-            </div>
-            <el-button v-if="state.detail.orderStatus == 3" style="margin-bottom: 10px" color="#1baeae" block @click="handleConfirmOrder(state.detail.orderNo)">确认收货</el-button>
-            <el-button v-if="state.detail.orderStatus == 0" style="margin-bottom: 10px" color="#1baeae" block @click="showPayFn">去支付</el-button>
-            <el-button v-if="!(state.detail.orderStatus < 0 || state.detail.orderStatus == 4)" block @click="handleCancelOrder(state.detail.orderNo)">取消订单</el-button>
+    <div class="content">
+        <div class="title">
+            <span>订单</span>
         </div>
-        <div class="order-price">
-            <div class="price-item">
-                <label>商品金额：</label>
-                <span>¥ {{ state.detail.totalPrice }}</span>
+        <div class="order-container">
+            <el-table :data="form.goodList" border stripe fit>
+                <el-table-column label="商品名称"  prop="product_name"></el-table-column>
+                <el-table-column label="价格"  prop="price"></el-table-column>
+                <el-table-column label="分类" prop="category"></el-table-column>
+                <el-table-column label="商品介绍" prop="introduce"></el-table-column>
+                <el-table-column label="商品图片" prop="picture">
+                    <template #default="scope">
+                        <img style="width: 180px;height: 150px" :src="scope.row.picture" alt=""/>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <div class="payment">
+                <h3>支付方式</h3>
+                <el-radio-group v-model="form.payment">
+                    <el-radio-button label="支付宝">
+                        <i class="iconfont icon-zhifubaozhifu"/>
+                        支付宝
+                    </el-radio-button>
+                    <el-radio-button label="微信">
+                        <i class="iconfont icon-weixinzhifu"/>
+                        微信
+                    </el-radio-button>
+                    <el-radio-button label="线下交易">
+                        <i class="iconfont icon-zhifu"/>
+                        线下交易
+                    </el-radio-button>
+                </el-radio-group>
             </div>
-            <div class="price-item">
-                <label>配送方式：</label>
-                <span>普通快递</span>
-                <span>线下交易</span>
+            <div class="shipping-address">
+                <h3>收货地址</h3>
+                <div class="address">
+                    地址：{{form.user.address}}
+                </div>
+                <div class="addressee">
+                    收件人：{{form.user.nickname}}
+                </div>
+                <el-button text type="warning" plain @click="dialogVisible = true">修改收货地址</el-button>
+                <el-dialog v-model="dialogVisible"
+                           title="修改收货地址"
+                           width="30%">
+                    <el-input type="text" v-model="form.address" placeholder="新的收货地址" :prefix-icon="House" />
+                    <template #footer>
+                        <span class="dialog-footer">
+                        <el-button @click="dialogVisible = false">取消</el-button>
+                        <el-button type="primary" @click="upgradeAddress();dialogVisible=false">
+                            确认
+                        </el-button>
+                        </span>
+                    </template>
+                </el-dialog>
+            </div>
+            <div class="createOrder">
+               <el-button type="danger" @click="setOrder()">创建订单</el-button>
             </div>
         </div>
-        <el-card
-                v-for="item in state.detail.newBeeMallOrderItemVOS"
-                :key="item.goodsId"
-                style="background: #fff"
-                :num="item.goodsCount"
-                :price="item.sellingPrice"
-                desc="全场包邮"
-                :title="item.goodsName"
-                :thumb="$filters.prefix(item.goodsCoverImg)"
-        />
-        <el-popover
-                v-model:show="state.showPay"
-                position="bottom"
-                :style="{ height: '24%' }"
-        >
-            <div :style="{ width: '90%', margin: '0 auto', padding: '20px 0' }">
-                <el-button :style="{ marginBottom: '10px' }" color="#1989fa" block @click="handlePayOrder(state.detail.orderNo, 1)">支付宝支付</el-button>
-                <el-button color="#4fc08d" block @click="handlePayOrder(state.detail.orderNo, 2)">微信支付</el-button>
-                <el-button color="#4fc08d" block @click="handlePayOrder(state.detail.orderNo, 2)">线下交易</el-button>
-            </div>
-        </el-popover>
     </div>
 </template>
 
 <script setup>
-import { reactive} from 'vue'
+import { reactive, onMounted, ref } from 'vue'
+import {House} from '@element-plus/icons-vue'
+import {ElMessage} from 'element-plus'
+import {get, post} from "@/request/request";
+import {useRoute} from 'vue-router'
+import '@/assets/icon/iconfont.css'
+import router from "@/router";
 
-const state = reactive({
-    detail: {},
-    showPay: false
+const route = useRoute()
+
+const goodId = route.query.id
+const goodSeller = route.query.seller
+
+const form = reactive({
+    orderList: [],
+    goodList: [],
+    user:[],
+    payment: '',
+    price: '',
+    address: ''
+})
+
+const dialogVisible = ref(false)
+
+const upgradeAddress = () => {
+post('/api/auth/upgrade-address',{
+    address: form.address,
+    id: form.user.id
+    },message => {
+    ElMessage.success("地址修改成功")
+    form.user.address=message
+})
+}
+const setOrder = () => {
+    updateStatus()
+    post('/api/orders/set-order',{
+        id: goodId,
+        seller: goodSeller,
+        buyer: form.user.nickname,
+        payment: form.payment,
+        price: form.price,
+        shipping_address: form.address
+    }, message => {
+        ElMessage.success(message)
+        router.push('/success')
+    })
+}
+
+const updateStatus = () =>{
+    post('/api/goods/update-status',{
+        id: goodId,
+    },message =>{
+        ElMessage.success(message)
+        router.push('/index')
+    })
+}
+
+const getGoodById = () => {
+    post('/api/goods/find-goods',{
+        id: goodId
+    },message => {
+        form.goodList = message
+    })
+}
+
+const getMe = () => {
+    get('/api/user/me',(message)=> {
+        form.user = message
+    })
+}
+
+const getPrice = () => {
+    post('/api/goods/get-price',{
+        id: goodId
+    },message => {
+        form.price = message
+    })
+}
+
+onMounted(async () => {
+    await getGoodById()
+    await getMe()
+    await getPrice()
 })
 </script>
+
+<style lang="less" scoped>
+.content{
+  width: 1140px;
+  background-color: #fff;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+}
+
+.title{
+  width: 100%;
+  line-height: 60px;
+  background-color: #85d0fc;
+  border-radius: 12px;
+  span{
+    margin-left: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "Source Han Sans SC",serif;
+  }
+}
+
+.order-container{
+    width: 100%;
+    border-radius: 12px;
+    .payment{
+        width: 100%;
+        h3{
+            margin-left: 20px;
+        }
+        .el-button{
+            margin-left: 20px;
+            width: 100px;
+        }
+    }
+    .shipping-address{
+        width: 100%;
+        margin-left: 20px;
+        .address{
+            font-size: 18px;
+            font-family: "Source Han Sans SC", serif;
+        }
+        .addressee{
+            font-size: 18px;
+            font-family: "Source Han Sans SC", serif;
+        }
+        .dialog-footer button:first-child {
+            margin-right: 10px;
+        }
+    }
+    .createOrder{
+        margin-top: 20px;
+        margin-bottom: 50px;
+        width: 100%;
+        text-align: center;
+        .el-button{
+            width: 200px;
+        }
+    }
+
+}
+</style>

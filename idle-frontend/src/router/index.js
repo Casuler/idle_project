@@ -58,6 +58,11 @@ const router = createRouter({
           component: () => import('@/components/operate/OrderPage.vue')
         },
         {
+          path: '/success',
+          name: 'pay-success',
+          component: () => import('@/components/success.vue')
+        },
+        {
           path: '/myspace',
           name: 'account-myspace',
           component: () => import("@/components/myspace/MySpacePage.vue"),

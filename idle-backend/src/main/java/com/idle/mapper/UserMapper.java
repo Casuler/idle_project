@@ -23,6 +23,9 @@ public interface UserMapper {
     @Update("update db_account set avatar = #{avatar} where id = #{id}")
     int upgradeAvatar(String avatar, Integer id);
 
+    @Update("update db_account set address = #{address} where id = #{id}")
+    int upgradeAddress(String address, Integer id);
+
     @Update("update db_account set password = #{password} where email = #{email}")
     int resetPasswordByEmail(String password, String email);
 }

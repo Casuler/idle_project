@@ -4,12 +4,12 @@
             <img :src="form.publisher.avatar" class="user-avatar" alt=""/>
             <span v-if="form.publisher.nickname!=null">{{ form.publisher.nickname }}</span>
             <span v-else>{{ form.publisher.username }}</span>
-            <div class="buy" v-for="item in form.detail" :key="item.id" v-if="status === 1">
+            <div class="buy" v-for="item in form.detail" :key="item.id" v-if="status == 1">
                 <a class="price">￥{{ item.price }}</a>
                 <el-button type="danger"
                            plain
                            style="width: 70px;margin-left: 10px;margin-top: -10px"
-                           @click="goOrder(form.detail.id)"
+                           @click="goOrder()"
                 >立即购买</el-button>
             </div>
             <div class="buy"  v-for="item in form.detail" :key="item.id" v-else>
@@ -68,6 +68,7 @@ const status = route.query.status
 const form = reactive({
     detail: [],
     publisher: [],
+    price: ''
 })
 const getGoodsById = () => {
     post('/api/goods/find-goods', {
@@ -89,7 +90,8 @@ const goOrder = () => {
     router.push({
         path:`/order/${id}`,
         query:{
-            id: id
+            id: id,
+            seller: form.publisher.nickname
         }
     })
 }

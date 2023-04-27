@@ -13,7 +13,7 @@
       <el-table :data="form.orderList" border stripe>
           <el-table-column label="序号" type="index"></el-table-column>
           <el-table-column label="订单编号" prop="id"></el-table-column>
-          <el-table-column label="订单价格(元)"  prop="price"></el-table-column>
+          <el-table-column label="订单价格(元)" prop="price"></el-table-column>
           <el-table-column label="卖家"  prop="seller"></el-table-column>
           <el-table-column label="买家"  prop="buyer"></el-table-column>
           <el-table-column label="支付方式" prop="payment"></el-table-column>

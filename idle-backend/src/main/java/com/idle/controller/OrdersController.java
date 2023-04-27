@@ -21,11 +21,11 @@ public class OrdersController {
 
     @PostMapping("/set-order")
     public RestBean<String> setOrder(Integer id, String create_time, String seller, String buyer, String payment,
-                                     BigDecimal price){
+                                     BigDecimal price, String shipping_address){
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time = formatter.format(date);
-        boolean orders = orderService.createOrder(id, time, seller, buyer, payment, price);
+        boolean orders = orderService.createOrder(id, time, seller, buyer, payment, price, shipping_address);
         if(orders) return RestBean.success("订单创建成功");
         else return RestBean.failure(401,"订单创建失败，请联系管理员");
     }
