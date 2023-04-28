@@ -1,6 +1,6 @@
 <template>
     <el-card>
-        <el-table :data="form.goodList" border stripe>
+        <el-table :data="form.goodList" border stripe fit>
             <el-table-column label="序号" type="index"></el-table-column>
             <el-table-column label="商品编号" prop="id"></el-table-column>
             <el-table-column label="商品名称"  prop="product_name"></el-table-column>

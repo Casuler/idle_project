@@ -1,0 +1,30 @@
+{
+  "id": "4043332",
+  "name": "idle",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "781032",
+      "name": "微信支付",
+      "font_class": "weixinzhifu",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
+      "icon_id": "1486848",
+      "name": "支付宝支付",
+      "font_class": "zhifubaozhifu",
+      "unicode": "e634",
+      "unicode_decimal": 58932
+    },
+    {
+      "icon_id": "3769199",
+      "name": "支付",
+      "font_class": "zhifu",
+      "unicode": "e8f9",
+      "unicode_decimal": 59641
+    }
+  ]
+}

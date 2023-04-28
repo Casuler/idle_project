@@ -17,7 +17,7 @@
             </el-table>
             <div class="payment">
                 <h3>支付方式</h3>
-                <el-radio-group v-model="form.payment">
+                <el-radio-group  v-model="form.payment" @click="createVisible=true">
                     <el-radio-button label="支付宝">
                         <i class="iconfont icon-zhifubaozhifu"/>
                         支付宝
@@ -40,7 +40,7 @@
                 <div class="addressee">
                     收件人：{{form.user.nickname}}
                 </div>
-                <el-button text type="warning" plain @click="dialogVisible = true">修改收货地址</el-button>
+                <el-button type="warning" plain @click="dialogVisible = true">修改收货地址</el-button>
                 <el-dialog v-model="dialogVisible"
                            title="修改收货地址"
                            width="30%">
@@ -56,7 +56,7 @@
                 </el-dialog>
             </div>
             <div class="createOrder">
-               <el-button type="danger" @click="setOrder()">创建订单</el-button>
+               <el-button type="danger" :disabled="!createVisible" @click="setOrder()">创建订单</el-button>
             </div>
         </div>
     </div>
@@ -86,6 +86,7 @@ const form = reactive({
 })
 
 const dialogVisible = ref(false)
+const createVisible = ref(false)
 
 const upgradeAddress = () => {
 post('/api/auth/upgrade-address',{
@@ -104,7 +105,7 @@ const setOrder = () => {
         buyer: form.user.nickname,
         payment: form.payment,
         price: form.price,
-        shipping_address: form.address
+        shipping_address: form.user.address
     }, message => {
         ElMessage.success(message)
         router.push('/success')
@@ -115,8 +116,7 @@ const updateStatus = () =>{
     post('/api/goods/update-status',{
         id: goodId,
     },message =>{
-        ElMessage.success(message)
-        router.push('/index')
+        console.log(message)
     })
 }
 
@@ -198,6 +198,10 @@ onMounted(async () => {
         }
         .dialog-footer button:first-child {
             margin-right: 10px;
+        }
+        .el-button{
+            margin-top: 10px;
+            width: 100px;
         }
     }
     .createOrder{

@@ -13,4 +13,5 @@ public class Orders {
     String payment;
     Integer status;
     BigDecimal price;
+    String shipping_address;
 }

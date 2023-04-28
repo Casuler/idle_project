@@ -10,26 +10,29 @@
           </el-col>
       </el-row>
 
-      <el-table :data="form.orderList" border stripe>
-          <el-table-column label="序号" type="index"></el-table-column>
+      <el-table :data="form.orderList" border stripe :fit="true">
+          <el-table-column label="序号" type="index" style="width: 50px"></el-table-column>
           <el-table-column label="订单编号" prop="id"></el-table-column>
           <el-table-column label="订单价格(元)" prop="price"></el-table-column>
           <el-table-column label="卖家"  prop="seller"></el-table-column>
           <el-table-column label="买家"  prop="buyer"></el-table-column>
           <el-table-column label="支付方式" prop="payment"></el-table-column>
           <el-table-column label="订单状态" prop="status">
-              <div v-if="form.orderList.status='1'">
-                  <el-tag effect="dark" type="success">
-                      已完成
-                  </el-tag>
-              </div>
-              <div v-else>
-                  <el-tag effect="dark" type="danger">
-                      未完成
-                  </el-tag>
-              </div>
+              <template #default="scope">
+                  <div v-if="scope.row.status=='1'">
+                      <el-tag effect="dark" type="success">
+                          已完成
+                      </el-tag>
+                  </div>
+                  <div v-else>
+                      <el-tag effect="dark" type="danger">
+                          未完成
+                      </el-tag>
+                  </div>
+              </template>
           </el-table-column>
           <el-table-column label="下单时间" prop="create_time"></el-table-column>
+          <el-table-column label="收货地址" prop="shipping_address"></el-table-column>
       </el-table>
   </el-card>
 </template>

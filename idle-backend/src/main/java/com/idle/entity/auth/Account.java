@@ -9,4 +9,5 @@ public class Account {
     String username;
     String password;
     String avatar;
+    String address;
 }
