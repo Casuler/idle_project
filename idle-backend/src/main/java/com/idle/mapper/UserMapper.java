@@ -17,14 +17,14 @@ public interface UserMapper {
     @Insert("insert into db_account (email, username, password) values (#{email}, #{username}, #{password})")
     int createAccount(String username, String password, String email);
 
-    @Update("update db_account set nickname = #{nickname}, password = #{password} where email = #{email}")
-    int upgradeInfo(String nickname, String password, String email);
+    @Update("update db_account set nickname = #{nickname}, email = #{email}, address = #{address} where username = #{username}")
+    int upgradeInfo(String nickname, String email, String address, String username);
 
     @Update("update db_account set avatar = #{avatar} where id = #{id}")
-    int upgradeAvatar(String avatar, Integer id);
+    int upgradeAvatar(String avatar, Long id);
 
     @Update("update db_account set address = #{address} where id = #{id}")
-    int upgradeAddress(String address, Integer id);
+    int upgradeAddress(String address, Long id);
 
     @Update("update db_account set password = #{password} where email = #{email}")
     int resetPasswordByEmail(String password, String email);

@@ -24,8 +24,8 @@ public class GoodsController{
 
     //发布成功，但系统内部错误
     @PostMapping("/set-goods")
-    public RestBean<String> setGoods(Integer id, Integer publisher_id, String product_name, BigDecimal price,
-                                     String category, String introduce, String picture, String create_time){
+    public RestBean<String> setGoods(Long id, Long publisher_id, String product_name, BigDecimal price,
+                                     String category, String introduce, String picture){
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time = formatter.format(date);
@@ -56,21 +56,21 @@ public class GoodsController{
     }
 
     @PostMapping("/find-goods")
-    public RestBean<?>findGoodsById(Integer id) throws Exception {
+    public RestBean<?>findGoodsById(Long id) throws Exception {
         List<Goods> goods = goodsService.findGoodsById(id);
         if( goods == null || goods.size() == 0) return RestBean.failure(401,"当前商品不存在");
         else return RestBean.success(goods);
     }
 
     @PostMapping("/get-publisher-goods")
-    public RestBean<?> getGoodsByPublisherId(Integer publisher_id){
+    public RestBean<?> getGoodsByPublisherId(Long publisher_id){
         List<Goods> goods = goodsService.getGoodsByPublisherId(publisher_id);
         if(goods == null || goods.size() == 0) return RestBean.failure(401, "该用户还未上架商品");
         else return RestBean.success(goods);
     }
 
     @PostMapping("/get-publisher")
-    public RestBean<?> getUsernameByPublisherId(Integer publisher_id){
+    public RestBean<?> getUsernameByPublisherId(Long publisher_id){
         AccountUser user = goodsService.getUserByPublisherId(publisher_id);
         if(user == null) return RestBean.failure(401,"该用户不存在");
         else return RestBean.success(user);
@@ -78,7 +78,7 @@ public class GoodsController{
 
     //修改成功，系统内部错误，和增加商品相同报错
     @PostMapping("/update-goods")
-    public RestBean<String> updateGoods(Integer id, String product_name, BigDecimal price, String category,
+    public RestBean<String> updateGoods(Long id, String product_name, BigDecimal price, String category,
                                         String introduce, String picture){
        boolean goods = goodsService.updateGoods(id, product_name, price, category, introduce, picture);
        if(goods) return RestBean.success("商品修改成功");
@@ -86,14 +86,14 @@ public class GoodsController{
     }
 
     @PostMapping("/update-status")
-    public RestBean<String> updateStatus(Integer id){
+    public RestBean<String> updateStatus(Long id){
         boolean goods = goodsService.updateStatus(id);
         if(goods) return RestBean.success("商品下架成功");
         else return RestBean.failure(500,"内部错误，请联系管理员");
     }
 
     @PostMapping("/get-price")
-    public RestBean<String> getPriceById(Integer id){
+    public RestBean<String> getPriceById(Long id){
         String price = goodsService.getPriceById(id);
         return RestBean.success(price);
     }

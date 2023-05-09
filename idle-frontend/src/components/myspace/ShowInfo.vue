@@ -45,7 +45,7 @@ onMounted(async () => {
     background-color: #fff;
 }
 .message{
-    width: 20em;
+    width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

@@ -20,7 +20,7 @@ public class OrdersController {
     OrderService orderService;
 
     @PostMapping("/set-order")
-    public RestBean<String> setOrder(Integer id, String create_time, String seller, String buyer, String payment,
+    public RestBean<String> setOrder(Long id, String create_time, String seller, String buyer, String payment,
                                      BigDecimal price, String shipping_address){
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -38,14 +38,14 @@ public class OrdersController {
     }
 
     @PostMapping("/get-id-order")
-    public RestBean<?> getOrderById(Integer id, String nickname){
+    public RestBean<?> getOrderById(Long id, String nickname){
         List<Orders> orders = orderService.getOrderById(id,nickname);
         if(orders == null || orders.size() == 0) return RestBean.failure(401,"未查询到指定订单");
         else return RestBean.success(orders);
     }
 
     @PostMapping("/delete-order")
-    public RestBean<String> deleteOrder(Integer id){
+    public RestBean<String> deleteOrder(Long id){
         boolean status = orderService.deleteOrder(id);
         if(status) return RestBean.success("订单删除成功");
         else return RestBean.failure(500,"内部错误，请联系管理员");

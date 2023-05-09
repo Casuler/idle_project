@@ -3,7 +3,6 @@ package com.idle.service.impl;
 import com.idle.entity.goods.Goods;
 import com.idle.entity.user.AccountUser;
 import com.idle.mapper.GoodsMapper;
-import com.idle.mapper.UserMapper;
 import com.idle.service.GoodsService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -17,27 +16,24 @@ public class GoodsServiceImpl implements GoodsService {
     @Resource
     GoodsMapper goodsMapper;
 
-    @Resource
-    UserMapper userMapper;
-
     @Override
-    public List<Goods> findGoodsById(Integer id){
+    public List<Goods> findGoodsById(Long id){
        return goodsMapper.findGoodsById(id);
     }
 
     @Override
-    public boolean createGoods(Integer id, Integer publisher_id, String product_name, BigDecimal price, String category,
+    public boolean createGoods(Long id, Long publisher_id, String product_name, BigDecimal price, String category,
                              String introduce, String picture, String create_time) {
         return goodsMapper.createGoods(id, publisher_id, product_name, price, category, introduce, picture, create_time) > 0;
     }
 
-    public boolean updateGoods(Integer id, String product_name, BigDecimal price, String category,
+    public boolean updateGoods(Long id, String product_name, BigDecimal price, String category,
                            String introduce, String picture) {
         return goodsMapper.updateGoods(id,product_name,price,category,introduce,picture) > 0;
     }
 
     @Override
-    public boolean updateStatus(Integer id) {
+    public boolean updateStatus(Long id) {
         return goodsMapper.updateStatus(id) > 0;
     }
 
@@ -47,12 +43,12 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public List<Goods> getGoodsByPublisherId(Integer publisher_id) {
+    public List<Goods> getGoodsByPublisherId(Long publisher_id) {
         return goodsMapper.getGoodsByPublisherId(publisher_id);
     }
 
     @Override
-    public AccountUser getUserByPublisherId(Integer publisher_id){
+    public AccountUser getUserByPublisherId(Long publisher_id){
         return goodsMapper.getUserByPublisherId(publisher_id);
     }
 
@@ -65,7 +61,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public String getPriceById(Integer id) {
+    public String getPriceById(Long id) {
         return goodsMapper.getPriceById(id);
     }
 }

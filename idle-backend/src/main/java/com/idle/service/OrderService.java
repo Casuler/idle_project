@@ -8,8 +8,8 @@ import java.util.List;
 public interface OrderService {
 
     List<Orders> getUserOrder(String nickname);
-    boolean createOrder(Integer id, String create_time, String seller, String buyer, String payment, BigDecimal price,
+    boolean createOrder(Long id, String create_time, String seller, String buyer, String payment, BigDecimal price,
                         String shipping_address);
-    boolean deleteOrder(Integer id);
-    List<Orders> getOrderById(Integer id, String nickname);
+    boolean deleteOrder(Long id);
+    List<Orders> getOrderById(Long id, String nickname);
 }

@@ -9,12 +9,17 @@
       <el-form-item
           label="修改昵称"
           prop="nickname">
-          <el-input v-model="form.nickname" :prefix-icon="User"/>
+          <el-input v-model="form.user.nickname" placeholder="新昵称" :prefix-icon="User"/>
       </el-form-item>
       <el-form-item
-              label="修改密码"
-              prop="password">
-          <el-input type="password" :prefix-icon="Lock" :maxlength="16" v-model="form.password" placeholder="新密码" show-password/>
+              label="修改邮件地址"
+              prop="email">
+          <el-input type="email" :prefix-icon="Message" v-model="form.user.email" placeholder="电子邮件地址"/>
+      </el-form-item>
+      <el-form-item
+              label="修改地址"
+              prop="address">
+          <el-input type="textarea" :prefix-icon="Location" :maxlength="50" v-model="form.user.address" placeholder="新地址"/>
       </el-form-item>
       <el-form-item>
           <div style="margin-top: 40px">
@@ -27,14 +32,12 @@
 </template>
 
 <script setup>
-import {User, Lock} from '@element-plus/icons-vue'
+import {User, Message, Location} from '@element-plus/icons-vue'
 import {ElMessage} from 'element-plus'
 import {reactive, onMounted, ref} from 'vue'
 import {get, post} from "@/request/request";
 import router from "@/router";
 const form = reactive({
-    nickname: '',
-    password:'',
     user:[]
 })
 
@@ -56,16 +59,22 @@ const rules = {
     password: [
         { message: '请输入密码', trigger: 'blur' },
         { min: 6, max: 16, message: '密码的长度必须在6-16个字符之间', trigger: ['blur', 'change'] }
+    ],
+    email: [
+        { message: '请输入邮件地址', trigger: 'blur' },
+    ],
+    address: [
+        { message: '请输入地址', trigger:'blur'},
+        { min: 6, max:50,message:'地址不能低于6个字符',trigger:['blur', 'change']}
     ]
 }
 
 const doUpgrade = () => {
-    if(form.nickname === '') form.nickname = form.user.nickname
-    if(form.password === '') form.password = form.user.password
     post('/api/auth/upgrade-info',{
-        nickname: form.nickname,
-        password: form.password,
-        email: form.user.email
+        nickname: form.user.nickname,
+        email: form.user.email,
+        address: form.user.address,
+        username: form.user.username
     },message => {
         ElMessage.success(message)
         router.push('/index')
@@ -78,7 +87,7 @@ const getMe = () => {
     })
 }
 
-onMounted(async ()=>{
+onMounted (async ()=>{
     await getMe()
 })
 </script>

@@ -16,7 +16,7 @@ public class OrderServiceImpl implements OrderService {
     OrdersMapper ordersMapper;
 
     @Override
-    public boolean createOrder(Integer id, String create_time, String seller, String buyer, String payment,
+    public boolean createOrder(Long id, String create_time, String seller, String buyer, String payment,
                                 BigDecimal price, String shipping_address) {
         return ordersMapper.createOrder(id, create_time, seller, buyer, payment, price, shipping_address) > 0;
     }
@@ -27,12 +27,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Orders> getOrderById(Integer id, String nickname) {
+    public List<Orders> getOrderById(Long id, String nickname) {
         return ordersMapper.getOrderById(id, nickname);
     }
 
     @Override
-    public boolean deleteOrder(Integer id) {
+    public boolean deleteOrder(Long id) {
         return ordersMapper.deleteOrder(id) > 0;
     }
 }

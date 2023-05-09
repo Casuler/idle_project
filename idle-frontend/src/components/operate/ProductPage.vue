@@ -8,7 +8,7 @@
                 <a class="price">￥{{ item.price }}</a>
                 <el-button type="danger"
                            plain
-                           style="width: 70px;margin-left: 10px;margin-top: -10px"
+                           style="width: 120px;margin-left: 10px;margin-top: -10px"
                            @click="goOrder()"
                 >立即购买</el-button>
             </div>
@@ -16,7 +16,7 @@
                 <a class="price">￥{{ item.price }}</a>
                 <el-button type="danger"
                            plain
-                           style="width: 70px;margin-left: 10px;margin-top: -10px"
+                           style="width: 120px;margin-left: 10px;margin-top: -10px"
                            @click="goOrder(form.detail.id)"
                            disabled
                 >立即购买</el-button>
@@ -36,14 +36,14 @@
                         <span>{{item.introduce}}</span>
                     </div>
                     <div class="image-box">
-                        <img :src="item.picture" alt=""/>
+                        <el-image :src="item.picture" alt=""/>
                     </div>
-                </div>
-                <div class="button" v-if="uid !== publisher_id">
-                </div>
-                <div class="button" v-else>
-                    <span style="cursor:pointer;color: deepskyblue">编辑商品</span>
-                    <span style="cursor:pointer;margin-left: 5px;color: red" @click="updateStatus()" v-if="route.query.status==='1'">下架商品</span>
+                    <div class="button" v-if="uid !== publisher_id">
+                    </div>
+                    <div class="button" v-else>
+                        <span style="cursor:pointer;color: deepskyblue">编辑商品</span>
+                        <span style="cursor:pointer;margin-left: 5px;color: red" @click="updateStatus()" v-if="route.query.status==='1'">下架商品</span>
+                    </div>
                 </div>
             </div>
         </el-scrollbar>
@@ -113,7 +113,7 @@ onMounted(async () => {
 
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .publisher{
     width: 1140px;
     height: 80px;
@@ -148,6 +148,8 @@ onMounted(async () => {
 .product {
     width: 1140px;
     height: 650px;
+    display: flex;
+    flex-direction: column;
     margin: 20px auto;
     border-radius: 12px;
     border: 1px solid #e8e8e8;
@@ -157,6 +159,8 @@ onMounted(async () => {
 .product-container {
     width: 1140px;
     min-height: 650px;
+    display: flex;
+    flex-direction: column;
 }
 
 .product-container h2{
@@ -164,21 +168,29 @@ onMounted(async () => {
 }
 
 .image-box{
-    width: 450px;
     height: 500px;
     margin-top: 10px;
-}
-
-.image-box img{
-    margin-left: 70%;
-    width: 450px;
-    height: 500px;
+    display: flex;
+    justify-content: space-between;
+    .el-image{
+        margin: 0 auto;
+        align-items: center;
+        width: 450px;
+        height: 500px;
+    }
 }
 
 .profile{
     margin-left: 20px;
     font-size: 18px;
 }
+
+.button{
+    margin-left: 20px;
+    margin-top: 20px;
+
+}
+
 .buy{
     width: 300px;
     margin: 0 auto;
@@ -198,9 +210,5 @@ onMounted(async () => {
     height: 1px;
     width: 100%;
     background-color: #dadada;
-}
-
-.button{
-    float: right;
 }
 </style>

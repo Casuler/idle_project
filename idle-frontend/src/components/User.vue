@@ -1,28 +1,25 @@
 <template>
     <div class="user-container">
-        <el-dropdown trigger="click">
-            <div class="user-wrapper">
+        <div class="user-wrapper">
                 <div class="user-name" v-if="form.user.nickname!=null">{{ form.user.nickname }}</div>
                 <div class="user-name" v-else>{{form.user.username}}</div>
-                <img :src="form.user.avatar" class="user-avatar" alt=""/>
-            </div>
-            <template #dropdown>
-                <el-dropdown-menu>
-                    <el-dropdown-item @click="goMyspace()">
-                        <el-icon><User/></el-icon>
-                        个人中心
-                    </el-dropdown-item>
-                    <el-dropdown-item @click="warningMessage">
-                        <el-icon><ChatDotRound/></el-icon>
-                        消息
-                    </el-dropdown-item>
-                    <el-dropdown-item @click="logout()">
-                        <el-icon><SwitchButton/></el-icon>
-                        退出登录
-                    </el-dropdown-item>
-                </el-dropdown-menu>
-            </template>
-        </el-dropdown>
+            <el-dropdown>
+                <el-avatar :src="form.user.avatar" :size="50" alt=""/>
+                <template #dropdown>
+                    <el-dropdown-menu>
+                        <el-dropdown-item @click="goMyspace()" :icon="User">
+                            个人中心
+                        </el-dropdown-item>
+                        <el-dropdown-item @click="warningMessage" :icon="ChatDotRound">
+                            消息
+                        </el-dropdown-item>
+                        <el-dropdown-item @click="logout()" :icon="SwitchButton">
+                            退出登录
+                        </el-dropdown-item>
+                    </el-dropdown-menu>
+                </template>
+            </el-dropdown>
+        </div>
     </div>
 </template>
 
@@ -64,7 +61,7 @@ onMounted(async () => {
 })
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .user-container {
     display: flex;
     align-items: center;
@@ -72,22 +69,12 @@ onMounted(async () => {
     padding: 0 10px;
     transition: background 0.3s;
 
-    &:hover {
-        background: rgba(0, 0, 0, 0.025);
-    }
-
     .user-wrapper {
         display: flex;
         align-items: center;
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 5px;
-            margin-right: 40px;
+        .el-avatar {
             cursor: pointer;
         }
-
         .user-name {
             padding-right: 10px;
             white-space: nowrap;
