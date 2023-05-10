@@ -32,7 +32,6 @@ import {Goods} from '@element-plus/icons-vue'
 import Category from "@/components/Category.vue";
 import {useStore} from "@/stores/store";
 import router from "@/router";
-import simplebar from 'simplebar-vue'
 
 const top = 'https://itbaima.net/assets/resource-banner-27d717a1.jpg'
 const store = useStore()

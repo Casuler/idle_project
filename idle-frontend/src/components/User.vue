@@ -74,6 +74,7 @@ onMounted(async () => {
         align-items: center;
         .el-avatar {
             cursor: pointer;
+            outline: none;
         }
         .user-name {
             padding-right: 10px;

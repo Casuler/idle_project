@@ -3,7 +3,12 @@
         <el-container style="height: 100%">
             <el-header class="header">
                 <div class="header-title">
-                    <img src="@/assets/images/favicon.png" class="logo" @click="router.push('/index')">
+                    <el-dropdown>
+                        <el-image :src="logo" class="logo" @click="router.push('/index')"/>
+                        <template #dropdown>
+                            <span style="font-size: 14px">点我回到首页</span>
+                        </template>
+                    </el-dropdown>
                     <span style="align-items: center">Idle—大学生自己的二手交易平台</span>
                 </div>
                 <div class="header-prop">
@@ -32,7 +37,7 @@ import router from '@/router'
 import {format} from 'date-fns'
 import {onMounted,ref} from 'vue'
 
-
+const logo = 'https://cdn.staticaly.com/gh/DrowsyFlesh/idle_bed/master/2023/05/1043cb2305f8ff4c5f856429c2c0f5e5ce.png'
 let setTimer = ''
 let timer = ref('')
 
@@ -61,12 +66,12 @@ onMounted(async () => {
         display: flex;
         align-items: center;
     }
-    .header-title img{
-        width: 100px;
-        height: 60px;
-    }
     .logo {
+        width: 42px;
+        height: 35px;
         cursor: pointer;
+        margin-right: 20px;
+        outline: none;
     }
     .header-prop{
         display: flex;
