@@ -4,12 +4,12 @@
             <span>订单</span>
         </div>
         <div class="order-container">
-            <el-table :data="form.goodList" border stripe fit>
-                <el-table-column label="商品名称"  prop="product_name"></el-table-column>
-                <el-table-column label="价格"  prop="price"></el-table-column>
-                <el-table-column label="分类" prop="category"></el-table-column>
-                <el-table-column label="商品介绍" prop="introduce"></el-table-column>
-                <el-table-column label="商品图片" prop="picture">
+            <el-table :data="form.goodList" stripe fit>
+                <el-table-column label="商品名称" width="200" align="center" prop="product_name"></el-table-column>
+                <el-table-column label="价格" width="100" align="center" prop="price"></el-table-column>
+                <el-table-column label="分类" width="100" align="center" prop="category"></el-table-column>
+                <el-table-column label="商品介绍" width="530" align="center" prop="introduce"></el-table-column>
+                <el-table-column label="商品图片" width="220" align="center" prop="picture">
                     <template #default="scope">
                         <img style="width: 180px;height: 150px" :src="scope.row.picture" alt=""/>
                     </template>
@@ -40,10 +40,10 @@
                 <div class="addressee">
                     收件人：{{form.user.nickname}}
                 </div>
-                <el-button type="warning" plain @click="dialogVisible = true">修改收货地址</el-button>
+                <el-button type="warning" style="width: 120px" plain @click="dialogVisible = true">修改收货地址</el-button>
                 <el-dialog v-model="dialogVisible"
                            title="修改收货地址"
-                           width="30%">
+                           width="600">
                     <el-input type="text" v-model="form.address" placeholder="新的收货地址" :prefix-icon="House" />
                     <template #footer>
                         <span class="dialog-footer">

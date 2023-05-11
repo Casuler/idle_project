@@ -1,10 +1,10 @@
 <template>
     <div class="main-content">
-        <div style="margin: 0 50px 20px;width: 100%; height: 300px">
+        <div style="width: 100%; height: 300px">
             <div class="banner">
                 <el-image :src="top" style="height: 270px; width: 100%;opacity: 0.8"></el-image>
             </div>
-            <div style="text-shadow: rgb(98,98,98) 1px 1px 10px;
+            <div style="text-shadow: #626262 1px 1px 10px;
                    color:white; translate:30px -240px; ">
                 <div style="font-size: 30px;font-weight: bold;">
                     闲置交易

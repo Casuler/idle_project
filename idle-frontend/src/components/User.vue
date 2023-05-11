@@ -10,9 +10,9 @@
                         <el-dropdown-item @click="goMyspace()" :icon="User">
                             个人中心
                         </el-dropdown-item>
-                        <el-dropdown-item @click="warningMessage" :icon="ChatDotRound">
-                            消息
-                        </el-dropdown-item>
+<!--                        <el-dropdown-item @click="warningMessage" :icon="ChatDotRound">-->
+<!--                            消息-->
+<!--                        </el-dropdown-item>-->
                         <el-dropdown-item @click="logout()" :icon="SwitchButton">
                             退出登录
                         </el-dropdown-item>

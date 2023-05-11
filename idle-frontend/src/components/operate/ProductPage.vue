@@ -114,7 +114,7 @@
                 </el-form>
                 <div slot="footer" class="dialog-footer">
                     <el-button type="primary" @click="updateGoods();open=false">确 定</el-button>
-                    <el-button @click="open=false">取 消</el-button>
+                    <el-button @click="cancel">取 消</el-button>
                 </div>
             </el-dialog>
         </div>
@@ -228,6 +228,24 @@ const handleBeforeUpload = (file) => {
     return isJpg || isPng || isJpeg
 }
 
+function reset() {
+    form.value = {
+        detail: [],
+        publisher: [],
+        price: '',
+        product_name: '',
+        category: '',
+        introduce: '',
+        picture: ''
+    };
+    proxy.resetForm("formRef");
+}
+
+function cancel() {
+    open.value = false
+    reset();
+}
+
 const updateGoods = () => {
     post('/api/goods/update-goods',{
         id: id,
@@ -239,6 +257,7 @@ const updateGoods = () => {
     }, message => {
         ElMessage.success(message)
     })
+    reset()
 }
 
 const getGoodsById = () => {
@@ -246,7 +265,6 @@ const getGoodsById = () => {
         id: id
     }, message => {
         form.detail = message
-        console.log(message[0])
         form.product_name = message[0].product_name
         form.price = message[0].price
         form.category = message[0].category

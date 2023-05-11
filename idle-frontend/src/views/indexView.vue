@@ -3,23 +3,21 @@
         <el-container style="height: 100%">
             <el-header class="header">
                 <div class="header-title">
-                    <el-dropdown>
+                    <el-tooltip content="点我回到首页" effect="light" placement="bottom-end">
                         <el-image :src="logo" class="logo" @click="router.push('/index')"/>
-                        <template #dropdown>
-                            <span style="font-size: 14px">点我回到首页</span>
-                        </template>
-                    </el-dropdown>
+                    </el-tooltip>
+
                     <span style="align-items: center">Idle—大学生自己的二手交易平台</span>
                 </div>
-                <div class="header-prop">
-                    <a @click="router.push('/index')">首页</a>
-                    <a @click="warningMessage">分享交流</a>
-                </div>
+<!--                <div class="header-prop">-->
+<!--                    <a @click="router.push('/index')">首页</a>-->
+<!--                    <a @click="warningMessage">分享交流</a>-->
+<!--                </div>-->
                 <div class="header-user">
                     <User></User>
                 </div>
             </el-header>
-                <el-main style="height: 100%; width: 100%;">
+                <el-main style="height: 100%; width: 100%">
                     <router-view v-slot="{ Component }">
                         <transition name="el-fade-in-linear" mode="out-in">
                             <component :is="Component"/>
