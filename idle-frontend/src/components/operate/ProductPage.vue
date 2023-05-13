@@ -10,7 +10,16 @@
                            plain
                            style="width: 120px;margin-left: 10px;margin-top: -10px"
                            @click="goOrder()"
+                           v-if="uid !== publisher_id"
                 >立即购买</el-button>
+                <el-tooltip content="不能购买自己发布的商品" effect="light" placement="bottom" v-else>
+                    <el-button type="danger"
+                               plain
+                               style="width: 120px;margin-left: 10px;margin-top: -10px"
+                               @click="goOrder()"
+                               disabled
+                    >立即购买</el-button>
+                </el-tooltip>
             </div>
             <div class="buy"  v-for="item in form.detail" :key="item.id" v-else>
                 <a class="price">￥{{ item.price }}</a>

@@ -4,7 +4,7 @@
           <img :src="form.publisher.avatar" class="user-avatar" alt=""/>
           <span>{{ form.publisher.username }}</span>
           <el-button type="danger" plain
-                     style="width: 70px;margin: 10px auto;translate: 400px"
+                     style="width: 120px;margin: 10px auto;translate: 400px"
                      @click="releaseGoods">
               发布商品
           </el-button>

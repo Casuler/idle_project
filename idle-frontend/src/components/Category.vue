@@ -3,6 +3,7 @@
     <el-button @click="getCategory(form.category='服饰')">服饰</el-button>
     <el-button @click="getCategory(form.category='生活')">生活</el-button>
     <el-button @click="getCategory(form.category='科技')">科技</el-button>
+    <el-button @click="getCategory(form.category='图书')">图书</el-button>
     <div class="Search">
         <el-input type="text" v-model="form.search" placeholder="Search...">
             <template #suffix>
@@ -18,7 +19,7 @@
                     <img :src="item.picture" alt=""/>
                     <div class="good-desc">
                         <div class="title">{{item.product_name}}</div>
-                        <div class="price">￥ {{item.price.toFixed(2)}}</div>
+                        <div class="price">￥ {{item.price}}</div>
                         <div style="color: deepskyblue" v-if="item.status">上架中</div>
                         <div style="color: red" v-else>已下架</div>
                     </div>
@@ -93,6 +94,7 @@ const searchGoods = () => {
 .Search{
     width: 220px;
     margin-top: 5px;
+    margin-bottom: 5px;
     height: 40px;
     .el-input{
         width: 200px;

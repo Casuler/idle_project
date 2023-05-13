@@ -1,8 +1,6 @@
 <template>
 <div class="content">
-    <div>
-        <img :src="form.user.avatar" class="image" alt="">
-    </div>
+    <el-image :src="form.user.avatar" class="image" alt=""/>
     <el-descriptions :column="1" border>
         <el-descriptions-item label="昵称" v-model="form.user.nickname">
             <p class="message">{{form.user.nickname}}</p>
@@ -41,7 +39,8 @@ onMounted(async () => {
 
 <style scoped>
 .content{
-    width: 1140px;
+    margin: 20px auto;
+    width: 980px;
     background-color: #fff;
 }
 .message{

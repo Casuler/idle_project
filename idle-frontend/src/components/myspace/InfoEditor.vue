@@ -4,7 +4,6 @@
            :rules="rules"
            ref="ruleForm"
            label-width="100px"
-           class="demo-dynamic"
            >
       <el-form-item
           label="修改昵称"
@@ -94,22 +93,21 @@ onMounted (async ()=>{
 
 <style lang="less" scoped>
 .content{
-    width: 1140px;
+    margin: 20px auto;
     background-color: #fff;
 }
 
 .el-form{
-  display: flex;
-  flex-direction: column;
+    margin-left: 25%;
+    display: flex;
+    flex-direction: column;
 }
 
 .el-form-item{
-  margin-top: 20px;
-  margin-left: 300px;
-  width: 380px;
+    width: 400px;
 }
 
 .label{
-  width: 200px;
+    width: 200px;
 }
 </style>
