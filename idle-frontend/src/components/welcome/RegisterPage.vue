@@ -18,12 +18,12 @@
                 <el-input type="email" :prefix-icon="Message" v-model="form.email" placeholder="电子邮件地址"/>
             </el-form-item>
             <el-form-item prop="code">
-                <el-row :gutter="10" style="width: 100%">
+                <el-row :gutter="10">
                     <el-col :span="18">
                         <el-input type="text" v-model="form.code" :maxlength="6" :prefix-icon="EditPen" placeholder="请输入验证码"/>
                     </el-col>
                     <el-col :span="6">
-                        <el-button style="width: 90px" type="success" @click="validateEmail"
+                        <el-button style="width: 120px" type="success" @click="validateEmail"
                                    :disabled="!isEmailValid || coldTime > 0">
                             {{coldTime > 0 ? '请等待 ' + coldTime + '秒' : '获取验证码'}}</el-button>
                     </el-col>

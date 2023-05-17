@@ -22,7 +22,7 @@ public interface GoodsMapper {
     int createGoods(Long id, Long publisher_id, String product_name, BigDecimal price, String category,
                     String introduce, String picture, String create_time);
 
-    @Update("update db_goods set product_name = #{product_name}, price = #{price}, category = #{price}, introduce = " +
+    @Update("update db_goods set product_name = #{product_name}, price = #{price}, category = #{category}, introduce = " +
             "#{introduce}, picture = #{picture} where id = #{id}")
     int updateGoods(Long id,String product_name, BigDecimal price, String category, String introduce, String picture);
 

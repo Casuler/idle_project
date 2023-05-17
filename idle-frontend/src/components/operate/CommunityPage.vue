@@ -40,7 +40,6 @@ const top = 'https://itbaima.net/assets/resource-banner-27d717a1.jpg'
     display: flex;
     width: 100%;
     height: calc(100vh - 61px);
-    min-width: 1000px;
     background-color: #f2f4f8;
 }
 

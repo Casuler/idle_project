@@ -19,20 +19,8 @@ if(store.auth.user == null){
 }
 </script>
 <style lang="less">
-* {
-    overflow: hidden;
-}
-::-webkit-scrollbar {
-    width: 0 !important;
-}
-
-::-webkit-scrollbar {
-    width: 0 !important;
-    height: 0;
-
-}
 body{
-    height: 100vh;
+    overflow: hidden;
     background-color: #f2f4f8;
 }
 </style>

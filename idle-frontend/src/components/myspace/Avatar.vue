@@ -59,10 +59,13 @@ const changeAvatar = () => {
 
 <template>
   <div class="content">
+      <div class="user-avatar">
+          <el-image :src="form.user.avatar" style="width: 300px; height: 300px"></el-image>
+      </div>
       <el-upload
           ref="upload"
           class="avatar-uploader"
-          accept="image/jpg,image/jpeg,image/png"
+          accept="image/jpg,image/jpeg,image/png,image/gif"
           :with-credentials="true"
           action="http://localhost:8888/api/github/upload"
           :show-file-list="false"
@@ -72,7 +75,7 @@ const changeAvatar = () => {
           <img v-if="imageUrl" :src="imageUrl" class="avatar"/>
           <el-icon v-else class="avatar-uploader-icon"><Plus/></el-icon>
       </el-upload>
-      <el-button type="success" style="width: 180px;margin-left: 10px;margin-top: 150px" @click="changeAvatar()" plain>确认修改</el-button>
+      <el-button type="success" style="width: 180px;margin-left: 10px;margin-top: 320px" @click="changeAvatar()" plain>确认修改</el-button>
   </div>
 </template>
 
@@ -84,8 +87,8 @@ const changeAvatar = () => {
 }
 
 .avatar-uploader .avatar {
-    width: 178px;
-    height: 178px;
+    width: 200px;
+    height: 200px;
     display: block;
 }
 </style>
@@ -98,6 +101,8 @@ const changeAvatar = () => {
     position: relative;
     overflow: hidden;
     transition: var(--el-transition-duration-fast);
+    margin-top: 100px;
+    margin-left: 10px;
 }
 
 .avatar-uploader .el-upload:hover {
@@ -107,8 +112,8 @@ const changeAvatar = () => {
 .el-icon.avatar-uploader-icon {
     font-size: 28px;
     color: #8c939d;
-    width: 178px;
-    height: 178px;
+    width: 200px;
+    height: 200px;
     text-align: center;
 }
 </style>

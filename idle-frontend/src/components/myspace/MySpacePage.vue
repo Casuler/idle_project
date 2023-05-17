@@ -1,7 +1,6 @@
 <template>
-<div>
     <el-container>
-        <el-aside width="200px">
+        <el-aside width="250px" style="margin-left: 10%">
             <el-menu :default-openeds="['1']">
                 <el-sub-menu index="1">
                     <template #title>
@@ -53,16 +52,12 @@
                 </el-sub-menu>
             </el-menu>
         </el-aside>
-        <el-container
-            style="background-color:#f2f4f8;">
+        <el-container style="margin-left: 50px;margin-right: 10%;background-color:white">
             <el-main>
-                <div>
-                    <router-view></router-view>
-                </div>
+                <router-view></router-view>
             </el-main>
         </el-container>
     </el-container>
-</div>
 </template>
 
 <script setup>

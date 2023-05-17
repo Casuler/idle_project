@@ -16,9 +16,9 @@ public class OrderServiceImpl implements OrderService {
     OrdersMapper ordersMapper;
 
     @Override
-    public boolean createOrder(Long id, String create_time, String seller, String buyer, String payment,
+    public boolean createOrder(Long id, String product_name, String create_time, String seller, String buyer, String payment,
                                 BigDecimal price, String shipping_address) {
-        return ordersMapper.createOrder(id, create_time, seller, buyer, payment, price, shipping_address) > 0;
+        return ordersMapper.createOrder(id, product_name, create_time, seller, buyer, payment, price, shipping_address) > 0;
     }
 
     @Override

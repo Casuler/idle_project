@@ -1,7 +1,7 @@
 <template>
     <div style="width: 100vw; height: 100vh; overflow: hidden; display: flex">
         <div style="flex: 1">
-            <el-image style="width: 100%; height: 100%" fit="cover" src="src/assets/images/2.jpg" />
+            <el-image style="width: 100%; height: 100%" fit="cover" src="src/assets/images/wallpaper/2.jpg" />
         </div>
         <div class="welcome-title">
             <div style="font-size: 30px; font-weight:bold">欢迎来到Idle校园闲鱼二手交易网站</div>

@@ -25,7 +25,7 @@ public class GoodsController{
     //发布成功，但系统内部错误
     @PostMapping("/set-goods")
     public RestBean<String> setGoods(Long id, Long publisher_id, String product_name, BigDecimal price,
-                                     String category, String introduce, String picture){
+                                     String category, String introduce, String picture, String create_time){
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time = formatter.format(date);

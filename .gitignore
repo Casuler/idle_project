@@ -20,6 +20,7 @@ target/
 *.ipr
 *.jpg
 *.png
+*.gif
 /node_modules/
 
 ### NetBeans ###
