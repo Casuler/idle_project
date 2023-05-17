@@ -10,6 +10,8 @@ import axios from 'axios'
 
 import {resetForm} from "@/utils/idle";
 
+import {resetForm} from "@/utils/idle";
+
 const app = createApp(App)
 
 axios.defaults.baseURL = 'http://localhost:8888'
