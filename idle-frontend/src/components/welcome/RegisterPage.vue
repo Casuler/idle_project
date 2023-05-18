@@ -23,7 +23,7 @@
                         <el-input type="text" v-model="form.code" :maxlength="6" :prefix-icon="EditPen" placeholder="请输入验证码"/>
                     </el-col>
                     <el-col :span="6">
-                        <el-button style="width: 120px" type="success" @click="validateEmail"
+                        <el-button style="width: 105px" type="success" @click="validateEmail"
                                    :disabled="!isEmailValid || coldTime > 0">
                             {{coldTime > 0 ? '请等待 ' + coldTime + '秒' : '获取验证码'}}</el-button>
                     </el-col>

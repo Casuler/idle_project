@@ -10,15 +10,14 @@
           </el-col>
       </el-row>
 
-      <el-table :data="form.orderList" stripe @selection-change="handleSelectionChange">
-          <el-table-column type="selection" width="50" align="center"/>
-          <el-table-column label="订单编号" align="center" prop="id"></el-table-column>
+      <el-table :data="form.orderList" stripe>
+          <el-table-column label="订单编号" width="110" align="center" sortable prop="id"></el-table-column>
           <el-table-column label="商品名称" align="center" prop="product_name"></el-table-column>
-          <el-table-column label="订单价格(元)" width="120" align="center" prop="price"></el-table-column>
-          <el-table-column label="卖家" width="80" align="center"  prop="seller"></el-table-column>
-          <el-table-column label="买家" width="80" align="center"  prop="buyer"></el-table-column>
-          <el-table-column label="支付方式" width="100" align="center" prop="payment"></el-table-column>
-          <el-table-column label="订单状态" width="80" align="center"  prop="status">
+          <el-table-column label="订单价格(元)" width="130" align="center" sortable prop="price"></el-table-column>
+          <el-table-column label="卖家" width="80" align="center" prop="seller"></el-table-column>
+          <el-table-column label="买家" width="80" align="center" prop="buyer"></el-table-column>
+          <el-table-column label="支付方式" width="110" align="center" sortable prop="payment"></el-table-column>
+          <el-table-column label="订单状态" width="110" align="center" sortable prop="status">
               <template #default="scope">
                   <div v-if="scope.row.status !== 0">
                       <el-tag effect="dark" type="success">
@@ -32,17 +31,17 @@
                   </div>
               </template>
           </el-table-column>
-          <el-table-column label="下单时间" width="100" align="center" prop="create_time"></el-table-column>
+          <el-table-column label="下单时间" width="120" align="center" sortable prop="create_time"></el-table-column>
           <el-table-column label="收货地址" width="200" align="center" prop="shipping_address"></el-table-column>
-          <el-table-column label="操作" align="center" width="120">
-              <template #default="scope">
-                <el-tooltip content="修改" placement="top">
-                    <el-icon @click="handleUpdate(scope.row)" style="cursor: pointer">
-                        <EditPen/>
-                    </el-icon>
-                </el-tooltip>
-              </template>
-          </el-table-column>
+<!--          <el-table-column label="操作" align="center" width="120">-->
+<!--              <template #default="scope">-->
+<!--                <el-tooltip content="修改" placement="top">-->
+<!--                    <el-icon @click="handleUpdate(scope.row)" style="cursor: pointer">-->
+<!--                        <EditPen/>-->
+<!--                    </el-icon>-->
+<!--                </el-tooltip>-->
+<!--              </template>-->
+<!--          </el-table-column>-->
       </el-table>
   </el-card>
 </template>

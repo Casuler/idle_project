@@ -27,7 +27,7 @@
         <el-dialog
             v-model="releaseDialog"
             title="发布闲置商品"
-            width="50%"
+            width="600px"
             append-to-body
         >
             <el-form ref="releaseRef" :rules="rules" :model="form" label-width="80px">
@@ -39,7 +39,7 @@
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="商品分类" prop="category">
-                            <el-select v-model="form.category" style="width: 100px" placeholder="商品分类">
+                            <el-select v-model="form.category" style="width: 80px" placeholder="商品分类">
                                 <el-option
                                     v-for="item in category"
                                     :key="item.value"
@@ -77,6 +77,7 @@
                                 :auto-upload="false"
                                 :on-exceed="handleExceed"
                                 :on-success="handleSuccess"
+                                :on-preview="handlePreview"
                             >
                                 <template #trigger>
                                     <el-icon><Plus/></el-icon>
@@ -93,6 +94,9 @@
                                     </div>
                                 </template>
                             </el-upload>
+                            <el-dialog v-model="pictureDialog">
+                                <img w-full :src="dialogImageUrl" alt="Preview Image"/>
+                            </el-dialog>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -117,8 +121,9 @@ import { getCurrentInstance } from "vue";
 const { proxy } = getCurrentInstance();
 
 const top = 'https://itbaima.net/assets/resource-banner-27d717a1.jpg'
-const store = useStore()
+const pictureDialog = ref(false)
 const releaseDialog = ref(false)
+const dialogImageUrl = ref('')
 const releaseRef = ref()
 const upload = ref()
 
@@ -152,14 +157,14 @@ const category = [
 
 const rules = {
     product_name: [
-        { required: true,  trigger: 'blur'},
+        { required: true, message: '商品名不能为空', trigger: 'blur'},
         { min: 3, max: 25, message: '商品名称不能少于3个字符，且不超过25个字符', trigger: 'blur'}
     ],
     price: [
-        {required: true, trigger: 'blur'}
+        {required: true, message: '价格不能为空', trigger: 'blur'}
     ],
     introduce: [
-        {required: true, trigger: 'blur'},
+        {required: true, message: '商品介绍不能为空', trigger: 'blur'},
         {min: 5, max: 150, message: '商品介绍不能少于5个字符，且不超过150个字符', trigger: 'blur'}
     ],
     category: [
@@ -209,6 +214,11 @@ const submitUpload = () => {
     proxy.$refs.upload.submit()
 }
 
+const handlePreview = (file) => {
+    dialogImageUrl.value = file.url
+    pictureDialog.value = true
+}
+
 const release = () => {
     post('/api/goods/set-goods',{
         publisher_id: form.publisher.id,
@@ -251,7 +261,7 @@ onMounted(async () => {
 })
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .main-content{
     display: flex;
     flex-direction: column;
@@ -279,5 +289,9 @@ onMounted(async () => {
     height: 1px;
     width: 100%;
     background-color: #dadada;
+}
+
+.el-input__wrapper{
+    width: 80px;
 }
 </style>

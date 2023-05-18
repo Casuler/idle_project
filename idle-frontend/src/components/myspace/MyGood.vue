@@ -1,18 +1,17 @@
 <template>
     <el-card>
-        <el-table :data="form.goodList" @selection-change="handleSelectionChange">
-            <el-table-column type="selection" width="50" align="center"/>
-            <el-table-column label="商品编号" width="80" align="center" prop="id"></el-table-column>
+        <el-table :data="form.goodList">
+            <el-table-column label="商品编号" width="110" align="center" sortable prop="id"></el-table-column>
             <el-table-column label="商品名称" width="200" align="center" prop="product_name"></el-table-column>
-            <el-table-column label="价格" align="center" prop="price"></el-table-column>
-            <el-table-column label="分类" align="center" prop="category"></el-table-column>
+            <el-table-column label="价格" align="center" sortable prop="price"></el-table-column>
+            <el-table-column label="分类" align="center" sortable prop="category"></el-table-column>
             <el-table-column label="商品介绍" width="200" align="center" prop="introduce"></el-table-column>
             <el-table-column label="商品图片" align="center" width="210" prop="picture">
                 <template #default="scope">
                     <img style="width: 180px;height: 150px" :src="scope.row.picture" alt=""/>
                 </template>
             </el-table-column>
-            <el-table-column label="上架状态" width="100" align="center" prop="status">
+            <el-table-column label="上架状态" width="110" align="center" sortable prop="status">
                 <div v-if="form.goodList.status='1'">
                     <el-tag effect="dark" type="success">
                         上架中

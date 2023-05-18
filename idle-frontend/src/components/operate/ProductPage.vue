@@ -38,12 +38,11 @@
                     <h2 style="text-decoration: line-through">{{item.product_name}}</h2>
                     <span style="margin-left: 20px;color: red; font-size: 24px;font-weight: bold">该商品已下架</span>
                 </div>
-
                 <div class="split-line"></div>
                 <div class="profile">
                     <span>{{item.introduce}}</span>
                 </div>
-                <div class="image-box">
+                <div class="image-box" v-if="item.picture !== ''">
                     <el-image :src="item.picture" alt=""/>
                 </div>
                 <div class="button" v-if="uid !== publisher_id">
@@ -69,8 +68,13 @@
                     </el-row>
                     <el-row>
                         <el-col :span="12">
+                            <el-form-item label="商品介绍" prop="introduce">
+                                <el-input type="textarea" autosize style="width: 300px;" v-model="form.introduce"  placeholder="商品介绍"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="12">
                             <el-form-item label="商品分类" prop="category">
-                                <el-select v-model="form.category" style="width: 100px" placeholder="商品分类">
+                                <el-select v-model="form.category" style="width:80px" placeholder="商品分类">
                                     <el-option
                                         v-for="item in category"
                                         :key="item.value"
@@ -78,11 +82,6 @@
                                         :value="item.value"
                                     />
                                 </el-select>
-                            </el-form-item>
-                        </el-col>
-                        <el-col :span="12">
-                            <el-form-item label="商品介绍" prop="introduce">
-                                <el-input type="textarea" autosize style="width: 300px;" v-model="form.introduce"  placeholder="商品介绍"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -173,20 +172,24 @@ const category = [
     {
         value: '科技',
         label: '科技'
+    },
+    {
+        value: '图书',
+        label: '图书'
     }
 ]
 
 
 const rules = {
     product_name: [
-        { required: true,  trigger: 'blur'},
+        { required: true, message: '商品名不能为空', trigger: 'blur'},
         { min: 3, max: 25, message: '商品名称不能少于3个字符，且不超过25个字符', trigger: 'blur'}
     ],
     price: [
-        {required: true, trigger: 'blur'}
+        {required: true, message: '价格不能为空', trigger: 'blur'}
     ],
     introduce: [
-        {required: true, trigger: 'blur'},
+        {required: true, message: '商品介绍不能为空', trigger: 'blur'},
         {min: 5, max: 150, message: '商品介绍不能少于5个字符，且不超过150个字符', trigger: 'blur'}
     ],
     category: [

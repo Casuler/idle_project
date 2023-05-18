@@ -68,6 +68,11 @@ const router = createRouter({
           component: () => import("@/components/myspace/MySpacePage.vue"),
           children:[
             {
+              path: '',
+              name: 'index',
+              component: () => import("@/components/myspace/index.vue")
+            },
+            {
               path:'showinfo',
               name: 'account-showinfo',
               component: () => import("@/components/myspace/ShowInfo.vue")

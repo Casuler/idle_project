@@ -53,7 +53,7 @@
             </el-menu>
         </el-aside>
         <el-container style="margin-left: 50px;margin-right: 10%;background-color:white">
-            <el-main>
+            <el-main style="overflow-x: hidden">
                 <router-view></router-view>
             </el-main>
         </el-container>
@@ -113,4 +113,5 @@ onMounted(async () => {
 .alink{
     text-decoration: none;
 }
+
 </style>
