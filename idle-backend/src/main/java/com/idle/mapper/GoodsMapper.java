@@ -26,10 +26,10 @@ public interface GoodsMapper {
             "#{introduce}, picture = #{picture} where id = #{id}")
     int updateGoods(Long id,String product_name, BigDecimal price, String category, String introduce, String picture);
 
-    @Update("update db_goods set status = '0' where id = #{id}")
-    int updateStatus(Long id);
+    @Update("update db_goods set status = #{status} where id = #{id}")
+    int updateStatus(Integer status, Long id);
 
-    @Select("select * from db_goods")
+    @Select("select * from db_goods where status = 1")
     List<Goods> getAllGoods();
 
     @Select("select * from db_goods join db_account on db_account.id = db_goods.publisher_id where" +

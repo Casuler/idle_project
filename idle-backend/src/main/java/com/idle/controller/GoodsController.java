@@ -22,16 +22,15 @@ public class GoodsController{
     @Resource
     GoodsService goodsService;
 
-    //发布成功，但系统内部错误
     @PostMapping("/set-goods")
     public RestBean<String> setGoods(Long id, Long publisher_id, String product_name, BigDecimal price,
-                                     String category, String introduce, String picture, String create_time){
+                                     String category, String introduce, String picture){
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time = formatter.format(date);
         boolean goods = goodsService.createGoods(id, publisher_id, product_name, price, category, introduce,picture,time);
         if(goods) return RestBean.success("商品发布成功");
-        else return RestBean.failure(400,"商品发布失败，请联系管理员");
+        else return RestBean.failure(400,"商品发布失败，请检查商品信息是否完整");
     }
 
     @GetMapping("/get-goods")
@@ -76,7 +75,6 @@ public class GoodsController{
         else return RestBean.success(user);
     }
 
-    //修改成功，系统内部错误，和增加商品相同报错
     @PostMapping("/update-goods")
     public RestBean<String> updateGoods(Long id, String product_name, BigDecimal price, String category,
                                         String introduce, String picture){
@@ -86,9 +84,9 @@ public class GoodsController{
     }
 
     @PostMapping("/update-status")
-    public RestBean<String> updateStatus(Long id){
-        boolean goods = goodsService.updateStatus(id);
-        if(goods) return RestBean.success("商品下架成功");
+    public RestBean<String> updateStatus(Integer status, Long id){
+        boolean goods = goodsService.updateStatus(status, id);
+        if(goods) return RestBean.success("商品状态更新成功");
         else return RestBean.failure(500,"内部错误，请联系管理员");
     }
 

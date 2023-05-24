@@ -12,25 +12,45 @@
                 </template>
             </el-table-column>
             <el-table-column label="上架状态" width="110" align="center" sortable prop="status">
-                <div v-if="form.goodList.status='1'">
-                    <el-tag effect="dark" type="success">
-                        上架中
-                    </el-tag>
-                </div>
-                <div v-else>
-                    <el-tag effect="dark" type="danger">
-                        已下架
-                    </el-tag>
-                </div>
+                <template #default="scope">
+                    <div v-if="scope.row.status !== 0">
+                        <el-tag effect="dark" type="success">
+                            上架中
+                        </el-tag>
+                    </div>
+                    <div v-else>
+                        <el-tag effect="dark" type="danger">
+                            已下架
+                        </el-tag>
+                    </div>
+                </template>
             </el-table-column>
+            <el-table-column label="操作" align="center" width="70">
+                <template #default="scope">
+                    <el-tooltip content="查看商品" placement="top">
+                        <el-icon @click="handleSelect(scope.row.id,scope.row.status)" style="cursor:pointer;margin-right: 10px">
+                            <Document/>
+                        </el-icon>
+                    </el-tooltip>
+                    <el-tooltip content="下架商品" placement="top">
+                        <el-icon @click="handleOffset(scope.row.id, scope.row.status)" style="cursor: pointer">
+                            <Close/>
+                        </el-icon>
+                    </el-tooltip>
+                </template>
+            </el-table-column>
+
         </el-table>
     </el-card>
 </template>
 
 <script setup>
-import {reactive, onMounted, ref} from 'vue'
+import {reactive, onMounted} from 'vue'
 import {post} from "@/request/request";
 import {useRoute} from 'vue-router'
+import {Document, Close} from "@element-plus/icons-vue";
+import router from "@/router";
+import {ElMessage} from "element-plus";
 
 const route = useRoute()
 const id = route.query.publisher_id
@@ -50,10 +70,30 @@ const getPublisherGood = () => {
     })
 }
 
-const multipleSelection = ref()
+const handleSelect = (goodId,status) => {
+    router.push({
+        path: `/product/${goodId}`,
+        query: {
+            id: goodId,
+            publisher_id: id,
+            uid: id,
+            status: status
+        }
+    })
+}
 
-const handleSelectionChange = (val) => {
-    multipleSelection.value = val
+const handleOffset = (goodId, status) => {
+    if(status === 0){
+        ElMessage.warning('商品已下架，请不要重复操作！')
+    } else {
+        post('/api/goods/update-status',{
+            status: 0,
+            id: goodId
+        }, message => {
+            ElMessage.success(message)
+        })
+    }
+
 }
 
 onMounted(async () => {

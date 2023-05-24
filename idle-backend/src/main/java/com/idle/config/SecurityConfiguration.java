@@ -45,9 +45,9 @@ public class SecurityConfiguration {
                 .and()
                 .formLogin()
                 .loginProcessingUrl("/api/auth/login")
-                //登陆成功处理
+                //登录成功处理
                 .successHandler(this::onAuthenticationSuccess)
-                //登陆失败处理
+                //登录失败处理
                 .failureHandler(this::onAuthenticationFailure)
                 .and()
                 .logout()

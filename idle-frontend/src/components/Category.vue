@@ -1,9 +1,9 @@
 <template>
     <el-button @click="getGoods">全部</el-button>
-    <el-button @click="getCategory(form.category='服饰')">服饰</el-button>
-    <el-button @click="getCategory(form.category='生活')">生活</el-button>
-    <el-button @click="getCategory(form.category='科技')">科技</el-button>
-    <el-button @click="getCategory(form.category='图书')">图书</el-button>
+    <el-button @click="getCategory('服饰')">服饰</el-button>
+    <el-button @click="getCategory('生活')">生活</el-button>
+    <el-button @click="getCategory('科技')">科技</el-button>
+    <el-button @click="getCategory('图书')">图书</el-button>
     <div class="Search">
         <el-input type="text" v-model="form.search" placeholder="Search...">
             <template #suffix>
@@ -59,11 +59,12 @@ onMounted(async () =>{
     await getMe()
 })
 
-const getCategory = () => {
+const getCategory = (category) => {
     post('/api/goods/get-category-good', {
-        category: form.category
+        category: category
     },message => {
         form.goodsList = message
+        form.category = category
     })
 }
 

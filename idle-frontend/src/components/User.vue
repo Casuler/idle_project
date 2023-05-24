@@ -30,8 +30,7 @@ import { useStore } from '@/stores/store'
 import { useRouter} from 'vue-router'
 import {get} from "@/request/request";
 import {ElMessage} from 'element-plus'
-import {ChatDotRound, SwitchButton, User} from '@element-plus/icons-vue'
-import {warningMessage} from "@/components/index";
+import {SwitchButton, User} from '@element-plus/icons-vue'
 
 const router = useRouter()
 const store = useStore()

@@ -1,10 +1,7 @@
 package com.idle.mapper;
 
 import com.idle.entity.orders.Orders;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -18,9 +15,14 @@ public interface OrdersMapper {
     @Select("select * from db_orders where #{nickname}=db_orders.seller or #{nickname}=db_orders.buyer")
     List<Orders> getUserOrders(String nickname);
 
-    @Delete("delete * from db_orders where id = #{id}")
+    @Update("update db_orders set status = 1 where id = #{id}")
+    int checkOrder(Long id);
+
+    @Delete("delete from db_orders where id = #{id}")
     int deleteOrder(Long id);
 
     @Select("select * from db_orders where id = #{id} and (db_orders.buyer = #{nickname} or db_orders.seller = #{nickname})")
     List<Orders> getOrderById(Long id, String nickname);
+
+
 }

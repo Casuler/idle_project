@@ -33,24 +33,29 @@
           </el-table-column>
           <el-table-column label="下单时间" width="120" align="center" sortable prop="create_time"></el-table-column>
           <el-table-column label="收货地址" width="200" align="center" prop="shipping_address"></el-table-column>
-<!--          <el-table-column label="操作" align="center" width="120">-->
-<!--              <template #default="scope">-->
-<!--                <el-tooltip content="修改" placement="top">-->
-<!--                    <el-icon @click="handleUpdate(scope.row)" style="cursor: pointer">-->
-<!--                        <EditPen/>-->
-<!--                    </el-icon>-->
-<!--                </el-tooltip>-->
-<!--              </template>-->
-<!--          </el-table-column>-->
+          <el-table-column label="操作" align="center" width="70">
+              <template #default="scope">
+                  <el-tooltip content="确认订单" placement="top">
+                      <el-icon @click="handleCheck(scope.row.status,scope.row.id)" style="cursor:pointer;margin-right: 10px">
+                          <Check/>
+                      </el-icon>
+                  </el-tooltip>
+                <el-tooltip content="取消订单" placement="top">
+                    <el-icon @click="handleCancel(scope.row.id)" style="cursor: pointer">
+                        <Delete/>
+                    </el-icon>
+                </el-tooltip>
+              </template>
+          </el-table-column>
       </el-table>
   </el-card>
 </template>
 
 <script setup>
-import {reactive, onMounted, ref} from 'vue'
+import {reactive, onMounted} from 'vue'
 import {post} from "@/request/request";
 import {useRoute} from 'vue-router'
-import {Search, EditPen} from '@element-plus/icons-vue'
+import {Search, Delete, Check} from '@element-plus/icons-vue'
 import {ElMessage} from 'element-plus'
 
 const route = useRoute()
@@ -59,7 +64,6 @@ const form = reactive({
     orderList:[],
     search: ''
 })
-const loading = ref(true);
 const getOwnOrder = () => {
     post('/api/orders/get-own-order',{
         nickname: name
@@ -82,31 +86,23 @@ const searchOrder = () => {
     })
 }
 
-const multipleSelection = ref()
-
-const handleSelectionChange = (val) => {
-    multipleSelection.value = val
+const handleCheck = (status,id) => {
+    if(status === 1){
+        ElMessage.warning("订单已完成，请不要重复操作")
+    } else {
+        post('/api/orders/check-order',{
+            id: id
+        }, message => {
+            ElMessage.success(message)
+        })
+    }
 }
 
-const handleUpdate = () => {
-
+const handleCancel = (id) => {
+    post('/api/orders/delete-order',{
+        id: id
+    }, message =>{
+        ElMessage.success(message)
+    })
 }
 </script>
-
-
-
-<style>
-.small-padding {
-    .cell {
-        padding-left: 5px;
-        padding-right: 5px;
-    }
-}
-
-.fixed-width {
-    .el-button--mini {
-        padding: 7px 10px;
-        width: 60px;
-    }
-}
-</style>

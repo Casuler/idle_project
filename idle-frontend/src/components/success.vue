@@ -2,7 +2,7 @@
     <div class="pay-success">
         <div class="success">
             <h3>
-                <img src="@/assets/images/right.png" width="32" height="32" alt=""/>
+                <img src="@/assets/images/icon/right.png" width="32" height="32" alt=""/>
                 恭喜您，订单创建成功！请与卖家联系完成商品交易！
             </h3>
             <div class="paydetail">

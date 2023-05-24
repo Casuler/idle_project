@@ -32,6 +32,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public boolean checkOrder(Long id) {
+        return ordersMapper.checkOrder(id) > 0;
+    }
+
+    @Override
     public boolean deleteOrder(Long id) {
         return ordersMapper.deleteOrder(id) > 0;
     }

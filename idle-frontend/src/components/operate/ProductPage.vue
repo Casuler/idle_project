@@ -4,7 +4,7 @@
             <img :src="form.publisher.avatar" class="user-avatar" alt=""/>
             <span v-if="form.publisher.nickname!=null">{{ form.publisher.nickname }}</span>
             <span v-else>{{ form.publisher.username }}</span>
-            <div class="buy" v-for="item in form.detail" :key="item.id" v-if="status == 1">
+            <div class="buy" v-for="item in form.detail" :key="item.id" v-if="status !== 0">
                 <a class="price">￥{{ item.price }}</a>
                 <el-button type="danger"
                            plain
@@ -49,7 +49,6 @@
                 </div>
                 <div class="button" v-else>
                     <span style="cursor:pointer;color: deepskyblue" @click="open=true">编辑商品</span>
-                    <span style="cursor:pointer;margin-left: 5px;color: red" @click="updateStatus()" v-if="route.query.status==='1'">下架商品</span>
                 </div>
             </div>
             <el-dialog title="修改商品信息" v-model="open" width="600px" append-to-body>
@@ -86,7 +85,7 @@
                         </el-col>
                     </el-row>
                     <el-row>
-                        <el-col :span="24">
+                        <el-col :span="12">
                             <el-form-item label="商品图片" prop="picture">
                                 <el-upload
                                     ref="upload"
@@ -116,6 +115,18 @@
                                         </div>
                                     </template>
                                 </el-upload>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="12">
+                            <el-form-item label="商品状态" prop="status">
+                                <el-select v-model="form.status" style="width:80px" placeholder="商品状态">
+                                    <el-option
+                                        v-for="item in goodStatus"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"
+                                    />
+                                </el-select>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -150,6 +161,7 @@ const status = route.query.status
 
 const open = ref(false)
 const formRef = ref()
+const goodsStatus = ref()
 const form = reactive({
     detail: [],
     publisher: [],
@@ -157,8 +169,20 @@ const form = reactive({
     product_name: '',
     category: '',
     introduce: '',
-    picture: ''
+    picture: '',
+    status: ''
 })
+
+const goodStatus = [
+    {
+        value: 1,
+        label: '上架'
+    },
+    {
+        value: 0,
+        label: '下架'
+    }
+]
 
 const category = [
     {
@@ -269,6 +293,12 @@ const updateGoods = () => {
     }, message => {
         ElMessage.success(message)
     })
+    post('/api/goods/update-status',{
+        status: form.status,
+        id: id
+    }, message => {
+        console.log(message)
+    })
     reset()
 }
 
@@ -305,8 +335,8 @@ const goOrder = () => {
 
 const updateStatus = () =>{
     post('/api/goods/update-status',{
-        id: id,
-        status: status
+        status: goodsStatus.value=0,
+        id: id
     },message =>{
         ElMessage.success(message)
         router.push('/index')

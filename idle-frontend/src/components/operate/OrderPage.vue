@@ -43,7 +43,7 @@
                 <el-button type="warning" style="width: 120px" plain @click="dialogVisible = true">修改收货地址</el-button>
                 <el-dialog v-model="dialogVisible"
                            title="修改收货地址"
-                           width="600">
+                           width="25%">
                     <el-input type="text" v-model="form.address" placeholder="新的收货地址" :prefix-icon="House" />
                     <template #footer>
                         <span class="dialog-footer">

@@ -16,7 +16,7 @@ public interface GoodsService {
     boolean updateGoods(Long id, String product_name, BigDecimal price, String category,
                       String introduce, String picture);
 
-    boolean updateStatus(Long id);
+    boolean updateStatus(Integer status, Long id);
 
     List<Goods> getAllGoods();
 

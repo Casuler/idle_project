@@ -24,7 +24,13 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public boolean createGoods(Long id, Long publisher_id, String product_name, BigDecimal price, String category,
                              String introduce, String picture, String create_time) {
-        return goodsMapper.createGoods(id, publisher_id, product_name, price, category, introduce, picture, create_time) > 0;
+        if(product_name.length() != 0 && price != null && category.length() != 0
+                && introduce.length() != 0 && picture.length() != 0) {
+            return goodsMapper.createGoods(id, publisher_id, product_name, price, category,
+                    introduce, picture, create_time) > 0;
+        } else {
+            return false;
+        }
     }
 
     public boolean updateGoods(Long id, String product_name, BigDecimal price, String category,
@@ -33,8 +39,8 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public boolean updateStatus(Long id) {
-        return goodsMapper.updateStatus(id) > 0;
+    public boolean updateStatus(Integer status, Long id) {
+        return goodsMapper.updateStatus(status, id) > 0;
     }
 
     @Override
